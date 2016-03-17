@@ -1,4 +1,4 @@
-UFC_Cadeiras
+UFC-Subjects
 ============
 
 Códigos de cadeiras da UFC
