@@ -1,4 +1,4 @@
 UFC-Subjects
 ============
 
-Códigos de cadeiras da UFC
+Repo for assigned taks from classes of my university
