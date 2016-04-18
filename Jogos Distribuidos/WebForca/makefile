@@ -1,5 +1,5 @@
 JAVAC=javac
-sources = $(wildcard *.java)
+sources = $(wildcard ClientStructure.java Baseview.java Hangman.java HangmanClient.java HangmanServer.java)
 classes = $(sources:.java=.class)
 
 all: $(classes)

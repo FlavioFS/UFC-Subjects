@@ -17,6 +17,49 @@ class HangmanClient {
 
 	public static final String SEPARATOR    = "»";
 
+
+	private static Socket _clSocket;
+
+	// Receiving
+	private static InputStream _downloadChannel;
+	private static DataInputStream _downloadData;
+	private static String _downMessage;
+
+	// Sending
+	private static OutputStream _uploadChannel;
+	private static DataOutputStream _uploadData;
+	private static String _upMessage;
+
+	// TOOL: Safe Messaging
+	// ---------------------------------------------------------------
+	// Waits for the client to confirm the message
+	private static void safeUpMessage () throws IOException {
+		do {
+			_uploadData.writeUTF(_upMessage);
+			System.out.println("S ~~> " + _upMessage);
+		} while (!_downloadData.readUTF().equals(_upMessage));
+
+		System.out.println("R <== " + _upMessage);
+	}
+
+	// Receives the message and confirms it with a copy
+	private static void safeDownMessage () throws IOException {
+		_downMessage = _downloadData.readUTF();
+		_uploadData.writeUTF(_downMessage);
+
+		System.out.println("R <== " + _downMessage + " ..... S ~~> " +  _downMessage);
+	}
+
+	private static void displayArray (String[] ary) {
+		System.out.print("[ " + ary[0]);
+		for (int i = 1; i < ary.length; i++) {
+			System.out.print(", " + ary[i]);
+		}
+
+		System.out.println(" ]");
+	}
+	// ---------------------------------------------------------------
+
 	public static void main(String[] args) {
 		String serverIP;
 		int serverPORT;
@@ -35,63 +78,77 @@ class HangmanClient {
 
 			// Connection
 			System.out.println("Attempting to connect to " + serverIP + " on port " + serverPORT);
-			Socket clSocket = new Socket (serverIP, serverPORT);
-			System.out.println("Successfully connected to " + clSocket.getRemoteSocketAddress() + "\n");
+			_clSocket = new Socket (serverIP, serverPORT);
+			System.out.println("Successfully connected to " + _clSocket.getRemoteSocketAddress() + "\n");
 
 			BaseView screen = new BaseView();
 
-			// Receiving
-			InputStream downloadChannel = clSocket.getInputStream();
-			DataInputStream downloadData = new DataInputStream(downloadChannel);
-			String receivedMessage = downloadData.readUTF();
+			// Receivinga
+			_downloadChannel = _clSocket.getInputStream();
+			_downloadData = new DataInputStream(_downloadChannel);
+			_downMessage = "";
 
 			// Sending
-			OutputStream uploadChannel = clSocket.getOutputStream();
-			DataOutputStream uploadData = new DataOutputStream(uploadChannel);
-			String sentMessage = "";// = "Greetings, terrestrians. We are from " + clSocket.getLocalSocketAddress();
+			_uploadChannel = _clSocket.getOutputStream();
+			_uploadData = new DataOutputStream(_uploadChannel);
+			_upMessage = "";
 
 			// Input Handler
 			Scanner keyboard =  new Scanner (System.in);
 
-			// Processing
-			while (receivedMessage != QUIT_GAME) {
+			// << Greetings
+			safeDownMessage();
+			System.out.println(_downMessage + " ........ aaaaaaaaaaa");
 
-				if (receivedMessage.equals(RENDER_NICK)) {
+			// << Nickname screen
+			safeDownMessage();
+			String[] splitmessage = _downMessage.split(",");
+			String rcode = splitmessage[0];
+
+			// displayArray(splitmessage);
+
+			// Processing
+			while (!rcode.equals(QUIT_GAME)) {
+
+				if (_downMessage.equals(RENDER_NICK)) {
 					screen.renderNicknameScreen();
 
-					sentMessage = keyboard.nextLine();
-					uploadData.writeUTF(sentMessage);
+					_upMessage = keyboard.nextLine();
+					safeUpMessage();
 				}
 				
-				else if (receivedMessage.equals(RENDER_TITLE)) {
+				else if (rcode.equals(RENDER_TITLE)) {
 					screen.renderTitleScreen();
 
-					sentMessage = keyboard.nextLine();
-					uploadData.writeUTF(sentMessage);
+					_upMessage = keyboard.nextLine();
+					safeUpMessage();
 				}
 
-				else if (receivedMessage.equals(RENDER_ROOM)) {
-					sentMessage = keyboard.nextLine();
-					uploadData.writeUTF(sentMessage);
-					screen.renderRoomScreen();
-				}
+				else if (rcode.equals(RENDER_ROOM)) {
 
-				else if (receivedMessage.equals(RENDER_GAME)) {
+					_upMessage = keyboard.nextLine();
+					safeUpMessage();
 					// screen.renderRoomScreen();
 				}
 
-				else {
-					System.out.println("<== " + receivedMessage);
+				else if (rcode.equals(RENDER_GAME)) {
+					// screen.renderGameScreen();
 				}
 
-				receivedMessage = downloadData.readUTF();
-				// System.out.println(receivedMessage);
+				else {
+					System.out.println("<== " + _downMessage);
+				}
+
+				safeDownMessage();
+				splitmessage = _downMessage.split(",");
+				rcode = splitmessage[0];
+				// System.out.println(_downMessage);
 			}
 
-			uploadData.writeUTF(sentMessage);
-			System.out.println("~~> " + sentMessage);	
+			_uploadData.writeUTF(_upMessage);
+			System.out.println("~~> " + _upMessage);	
 
-			clSocket.close();
+			_clSocket.close();
 
 		} catch (Exception ex) {
 			ex.printStackTrace();
