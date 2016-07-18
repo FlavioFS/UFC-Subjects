@@ -1,0 +1,24 @@
+===============================================================
+VERSÃO 5
+===============================================================
+ - pacotes agora possuem o nick do jogador por padrão
+ - refatoração de algumas classes e métodos para que fiquem mais legíveis
+ - envio automático e configurável de HEARTBEAT quando o protocolo estiver inativo
+ - class PacketUtils para manipulação dos dados do datagrama em baixo nível
+ - adicionado o envio e tratamento de PING/PONG ao protocolo
+ 
+ 
+===============================================================
+VERSÃO 4
+===============================================================
+ - TODO para Versão 5: integrar com o game engine elementar usado em "Programação para Jogos I"  
+ 
+ - build livre de warnings e de problemas
+ - correção das mensagens, que agora centralizam configurações como identificador do protocolo e versão
+ - porta, tamanho dos pacotes e descarte de pacotes gerados pelo próprio host configuráveis via ProtocolConfig
+ - novos métodos para criação de pacotes em PacketFactory
+ - método utilitário para tratamento de pacotes prioritários (a ser implementado no futuro, se necessário)
+ - criada uma classe específica para tratamento dos pacotes, PacketHandler. 
+   Instâncias de subclasses devem ser utilizadas em Protocol para facilitar a manutenção. 
+ - criada uma especialização padrão de PacketHandler para tratar das mensagens.
+ 
