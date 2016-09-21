@@ -1,10 +1,18 @@
 /**
  * Client program requesting current date from server.
+ * 
  *
+ * 	Usage 1 - query requesting: $ java DateClient <inbox name> <operator> <arg1> <arg2>
+ *	Usage 2 - inbox retrieving: $ java DateClient <inbox name>
+ *	
+ *	
+ *	E.g. 1: the code below sends 11, which is 4+7, to Joseph's inbox
+ *		$ java DateClient Joseph + 4 7
+ *	
+ *	E.g. 2: the code below retrieves Joseph's inbox
+ *		$ java DateClient Joseph
  */
 
-// package lab4;
- 
 import java.net.*;
 import java.io.*;
 

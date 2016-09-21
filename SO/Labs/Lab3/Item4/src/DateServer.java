@@ -1,9 +1,9 @@
 /**
  * Time-of-day server listening to port 6013.
  *
+ * 	Usage: Starting the server
+ *		$ java DateServer
  */
- 
-// package lab4;
  
 import java.net.*;
 import java.util.ArrayList;
@@ -44,7 +44,7 @@ public class DateServer
 			while (true) {
 				client = sock.accept();
 				
-				System.out.println("<~~~~~~~~ New query arriving ~~~~~~~~\nserver = " + sock + "\nclient = " + client);
+				System.out.println("<~~~~~~~~ New query arriving ~~~~~~~~\n<< " + client);
 
 				// we have a connection
 				PrintWriter pout = new PrintWriter(client.getOutputStream(), true);
