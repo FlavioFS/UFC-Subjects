@@ -12,7 +12,7 @@ public class Client
 			Registry registry = LocateRegistry.getRegistry(1099);
 			ICalc stub = (ICalc) registry.lookup(name);
 
-			System.out.println(stub.hiho());
+			System.out.println(stub.sum(1.0, 2.0));
 		}
 		catch (Exception ex)
 		{

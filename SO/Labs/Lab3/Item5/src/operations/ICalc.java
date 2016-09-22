@@ -10,4 +10,6 @@ public interface ICalc extends Remote
 	public String dif (double arg1, double arg2) throws RemoteException;
 	public String mul (double arg1, double arg2) throws RemoteException;
 	public String div (double arg1, double arg2) throws RemoteException;
+
+	public String getLast () throws RemoteException;
 }
