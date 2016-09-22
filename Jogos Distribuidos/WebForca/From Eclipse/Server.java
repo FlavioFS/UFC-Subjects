@@ -40,9 +40,9 @@ public class Server {
 	
 	public static void main(String[] args) throws IOException {
 		System.out.println("==================== SERVER ====================");
-//		System.out.print("Start serving in PORT: ");
-//		int port = input.nextInt();
-		servidor = new ServerProtocol(new ServerSocket(2222));
+		System.out.print("Start serving in PORT: ");
+		int port = input.nextInt();
+		servidor = new ServerProtocol(new ServerSocket(port));
 		System.out.println("Running...");
 		
 		// Inbox watcher
@@ -123,7 +123,11 @@ public class Server {
 				roomBroadcast(reply);
 			}
 			
-			else if (opcode.equals(MSG_GO)) {						// Ready to play
+			else if (opcode.equals(MSG_GO)) {	// Ready to play
+				System.out.println(_inRoom);
+				System.out.println(ipaddr);
+				System.out.println(_inRoom.contains(ipaddr));
+				System.out.println(_PB.everyoneReady());
 				if (_inRoom.isEmpty()) return;	// Empty room
 				
 				// Everyone is ready - Game Start!

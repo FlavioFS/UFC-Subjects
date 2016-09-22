@@ -67,10 +67,10 @@ public class Client {
 	
 	
 	public static void main(String[] args) throws IOException, InterruptedException {
-//		String[] IPAndPort = cView.renderConnectionScreen();
+		String[] IPAndPort = cView.renderConnectionScreen();
 		
-//		sock = new Socket (IPAndPort[0], Integer.parseInt(IPAndPort[1]));
-		sock = new Socket ("localhost", 2222);
+		sock = new Socket (IPAndPort[0], Integer.parseInt(IPAndPort[1]));
+		// sock = new Socket ("localhost", 2222);
 		clp = new ClientProtocol (sock);
 		clp.start();
 				
@@ -192,22 +192,18 @@ public class Client {
 	
 	private static void paintTitle () {
 		cView.renderTitleScreen(myNick);
-		System.out.println("state == " + state);
 	}
 	private static void paintNick () {
 		cView.renderNicknameScreen(MAX_NICK_SIZE, myNick);
-		System.out.println("state == " + state);
 	}
 	private static void paintRoom () {
 		cView.renderMatchmakingScreen(nicknames, ready, myPosition, myNick);
-		System.out.println("state == " + state);
 	}
 	private static void paintGame () {
 		cView.renderGameScreen(
 			nicknames, dead, score, found, mistakes, killedBy, hint,
 			lives, thisTurn, myNick, myPosition
 		);
-		System.out.println("state == " + state);
 	}
 	private static void paintVictory () {
 		cView.renderVictoryScreen(
@@ -215,21 +211,18 @@ public class Client {
 			hint, lives, thisTurn, myNick, myPosition
 		);
 		
-		System.out.println("state == " + state);
 	}
 	private static void paintDefeat () {
 		cView.renderDefeatScreen(
 			nicknames, dead, score, found, mistakes, killedBy, winners[0],
 			hint, lives, thisTurn, myNick, myPosition
 		);
-		System.out.println("state == " + state);
 	}
 	private static void paintDraw () {
 		cView.renderDrawScreen(
 			nicknames, dead, score, found, mistakes, killedBy, winners,
 			hint, lives, thisTurn, myNick, myPosition
 		);
-		System.out.println("state == " + state);
 	}
 	
 	// String representation for array

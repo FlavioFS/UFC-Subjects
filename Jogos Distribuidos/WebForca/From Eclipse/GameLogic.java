@@ -114,8 +114,8 @@ public class GameLogic {
         this.victory = false;
         this.lose = false;
         Random r = new Random ();
-//        this._word = _dictionary[r.nextInt(_dictionary.length)];
-        this._word = _dictionary[2];
+        this._word = _dictionary[r.nextInt(_dictionary.length)];
+        // this._word = _dictionary[2]; // Testing purposes
         this.hint.setLength(0);
         for (int i = 0; i < _word.length(); i++) {
             this.hint.append("_ ");

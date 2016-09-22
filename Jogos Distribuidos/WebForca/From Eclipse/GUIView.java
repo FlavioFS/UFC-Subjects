@@ -11,6 +11,9 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+/* IMCOMPLETE, NOT WORKING
+*/
+
 public class GUIView {
 	
 	// Title Window
