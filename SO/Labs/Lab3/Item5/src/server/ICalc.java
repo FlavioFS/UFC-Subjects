@@ -1,7 +1,8 @@
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public interface ICalcServer extends Remote
+public interface ICalc extends Remote
 {
 	public String hiho () throws RemoteException;
 
