@@ -2,8 +2,9 @@ HOW
 TO
 RUN
 -------------------------------------------------------------------
+1. Run the makefile: $ make
 
-1. Give permission to the file 'autotestq1.sh' to run as a program
-(Right click >> Properties >> Permissions >> Execute checkbox).
+2. Give permission to the file "autotestq1.sh" to run as a program
+(Right click >> "Properties" >> "Permissions" >> "Execute" checkbox).
 
-2. ./autotestq1.sh
+3. Run the shell script for automated test: $ ./autotestq1.sh

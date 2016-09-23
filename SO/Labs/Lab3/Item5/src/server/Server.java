@@ -6,6 +6,9 @@ import java.rmi.RemoteException;
 
 public class Server
 {
+
+	void 
+
 	public static void main (String[] args)
 	{
 		try
@@ -20,31 +23,17 @@ public class Server
 
 			System.out.println("Server ready...");
 
-			// String lastCalc = calculator.getLast();
-			// String now = calculator.getLast();
-			// int i = 0;
-			// while (true)
+			// new Thread ()
 			// {
-			// 	// now = calculator.getLast();
-			// 	if ((i % 2000000000) == 0) {
-			// 		System.out.println(i + calculator.getLast());
-			// 		// lastCalc = now;
+			// 	public void run (ICalc calculator) throws RemoteException, InterruptedException
+			// 	{
+			// 		while (true)
+			// 		{
+			// 			System.out.println(calculator.getLast());
+			// 			Thread.sleep(2000);
+			// 		}
 			// 	}
-			// 	i++;
-			// 	sleep()
-			// }
-
-			new Thread ()
-			{
-				public void run (ICalc calculator) throws RemoteException, InterruptedException
-				{
-					while (true)
-					{
-						System.out.println(calculator.getLast());
-						Thread.sleep(2000);
-					}
-				}
-			}.run(calculator);
+			// }.run(calculator);
 
 		}
 		catch (Exception ex)
