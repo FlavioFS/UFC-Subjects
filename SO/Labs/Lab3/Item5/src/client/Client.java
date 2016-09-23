@@ -1,5 +1,7 @@
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
+import java.lang.*;
+import java.rmi.RemoteException;
 
 public class Client
 {
@@ -7,12 +9,26 @@ public class Client
 	{
 		try
 		{
-			String name = "calckey";
+			String name = "dbkey";
 
 			Registry registry = LocateRegistry.getRegistry(1099);
-			ICalc stub = (ICalc) registry.lookup(name);
+			IDatabase stub = (IDatabase) registry.lookup(name);
 
-			System.out.println(stub.sum(1.0, 2.0));
+			String key, msg;
+			switch (args.length)
+			{
+				case 1:	// Request Inbox
+					key = args[0];
+					System.out.println("\n" + stub.getMailbox(key));
+					break;
+
+				case 4:	// Send Message
+					key = args[0];
+					msg = args[1] + ":" + args[2] + ":" + args[3]; // operator:arg1:arg2
+					stub.putMsg(key, msg);
+					System.out.println(">> Message sent to '" + key + "': " + msg);
+					break;
+			}
 		}
 		catch (Exception ex)
 		{

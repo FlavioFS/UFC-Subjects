@@ -6,17 +6,18 @@ import java.rmi.RemoteException;
 
 public class Server
 {
-
-	void 
-
 	public static void main (String[] args)
 	{
 		try
 		{
-			String name = "calckey";
-			
-			ICalc calculator = new Calc ();
-			ICalc stub = (ICalc) UnicastRemoteObject.exportObject(calculator, 0);
+			String name = "dbkey";
+
+			IDatabase db = new Database ();
+			IDatabase stub = (IDatabase) UnicastRemoteObject.exportObject(db, 0);
+
+			// String name = "calckey";
+			// ICalc calculator = new Calc ();
+			// ICalc stub = (ICalc) UnicastRemoteObject.exportObject(calculator, 0);
 
 			Registry registry = LocateRegistry.createRegistry(1099);
 			registry.rebind(name, stub);

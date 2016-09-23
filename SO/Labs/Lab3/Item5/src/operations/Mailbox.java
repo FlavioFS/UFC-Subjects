@@ -1,11 +1,17 @@
 import java.util.ArrayList;
-import java.rmi.RemoteException;
 
 public class Mailbox
 {
+	// Attributes
 	private ArrayList<String> messages;
 	
-	public Mailbox ()                  throws RemoteException { this.messages = new ArrayList<String>(); }
-	public ArrayList<String> msgList() throws RemoteException { return this.messages; }
-	public void put (String msg)       throws RemoteException { this.messages.add(msg); }
+	// Constructor
+	public Mailbox () { this.messages = new ArrayList<String>(); }
+
+	// Methods
+	int size () { return messages.size(); }
+
+	// Remote Interface Methods
+	public ArrayList<String> msgList() { return this.messages; }
+	public void put (String msg)       { this.messages.add(msg); }
 }
