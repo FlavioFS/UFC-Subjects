@@ -1,1 +1,1 @@
-java -classpath class DateServer
+java -classpath class/q3 DateServer

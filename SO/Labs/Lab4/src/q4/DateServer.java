@@ -1,34 +1,26 @@
 import java.net.*;
 import java.io.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class DateServer
 {
+	static int POOL_SIZE;
+
 	public static void main(String[] args)
 	{
 		try
 		{
+			POOL_SIZE = Integer.valueOf(args[0]);
+			ExecutorService thPool = Executors.newFixedThreadPool(POOL_SIZE);
 			ServerSocket sock = new ServerSocket (6013);
+
+			System.out.println("Server started! Pool Size: " + POOL_SIZE);
 
 			while (true)
 			{
-				Socket client = sock.accept();
-
-				Thread worker = new Thread ()
-				{
-					public void run (Socket client) throws IOException
-					{
-						PrintWriter pout = new PrintWriter (client.getOutputStream(), true);
-						String msg = new java.util.Date().toString();
-						System.out.println(">> " + msg);
-						pout.println(msg);
-						client.close();
-					}
-				};
-
-				worker.run(client);
-				try {
-					worker.join();
-				} catch (InterruptedException ex) {}
+				Runnable worker = new Worker (sock.accept());
+				thPool.execute(worker);
 			}
 		}
 

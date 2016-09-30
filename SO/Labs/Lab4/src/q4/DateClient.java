@@ -22,7 +22,7 @@ public class DateClient
 				inbox = bin.readLine();
 				if (inbox != null)
 				{
-					System.out.println("<< " + inbox);
+					System.out.print("\n#" + args[0] + " << " + inbox);
 					break;
 				}
 			}		

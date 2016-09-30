@@ -1,0 +1,10 @@
+java -classpath class/q4 DateClient 01 &
+java -classpath class/q4 DateClient 02 &
+java -classpath class/q4 DateClient 03 &
+java -classpath class/q4 DateClient 04 &
+java -classpath class/q4 DateClient 05 &
+java -classpath class/q4 DateClient 06 &
+java -classpath class/q4 DateClient 07 &
+java -classpath class/q4 DateClient 08 &
+java -classpath class/q4 DateClient 09 &
+java -classpath class/q4 DateClient 10 &

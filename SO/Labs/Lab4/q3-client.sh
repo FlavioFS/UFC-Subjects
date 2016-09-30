@@ -1,20 +1,20 @@
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
-java -classpath class DateClient
+java -classpath class/q3 DateClient 01 &
+java -classpath class/q3 DateClient 02 &
+java -classpath class/q3 DateClient 03 &
+java -classpath class/q3 DateClient 04 &
+java -classpath class/q3 DateClient 05 &
+java -classpath class/q3 DateClient 06 &
+java -classpath class/q3 DateClient 07 &
+java -classpath class/q3 DateClient 08 &
+java -classpath class/q3 DateClient 09 &
+java -classpath class/q3 DateClient 10 &
+java -classpath class/q3 DateClient 11 &
+java -classpath class/q3 DateClient 12 &
+java -classpath class/q3 DateClient 13 &
+java -classpath class/q3 DateClient 14 &
+java -classpath class/q3 DateClient 15 &
+java -classpath class/q3 DateClient 16 &
+java -classpath class/q3 DateClient 17 &
+java -classpath class/q3 DateClient 18 &
+java -classpath class/q3 DateClient 19 &
+java -classpath class/q3 DateClient 20 &

@@ -1,7 +1,7 @@
 import java.net.*;
 import java.io.*;
 
-class Worker implements Runnable
+class Worker extends Thread
 {
 	private Socket client;
 
@@ -12,7 +12,7 @@ class Worker implements Runnable
 		System.out.println("Thread {" + Thread.currentThread().getName() + "} (Start)");
 		
 		// Simulates processing
-		try { Thread.sleep(4000); }
+		try { Thread.sleep(1000); }
 		catch (InterruptedException ex) { ex.printStackTrace(); }
 
 		// Output

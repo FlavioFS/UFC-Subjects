@@ -11,28 +11,8 @@ public class DateServer
 
 			while (true)
 			{
-				Socket client = sock.accept();
-
-				new Thread ()
-				{
-					public void run (Socket client) throws IOException
-					{
-						System.out.println("Thread {" + Thread.currentThread().getName() + "} (Start)");
-
-						PrintWriter pout = new PrintWriter (client.getOutputStream(), true);
-						String msg = new java.util.Date().toString();
-
-						// Simulates processing
-						try { Thread.sleep(1000); }
-						catch (InterruptedException ex) { ex.printStackTrace(); }
-
-						System.out.println("Thread {" + Thread.currentThread().getName() + "} >> " + msg);
-						pout.println(msg);
-						client.close();
-
-						System.out.println("Thread {" + Thread.currentThread().getName() + "} (End  )\n");
-					}
-				}.run(client);
+				Worker worker = new Worker (sock.accept());
+				worker.start();
 			}
 		}
 
