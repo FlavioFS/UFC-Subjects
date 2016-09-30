@@ -17,11 +17,20 @@ public class DateServer
 				{
 					public void run (Socket client) throws IOException
 					{
+						System.out.println("Thread {" + Thread.currentThread().getName() + "} (Start)");
+
 						PrintWriter pout = new PrintWriter (client.getOutputStream(), true);
 						String msg = new java.util.Date().toString();
-						System.out.println(">> " + msg);
+
+						// Simulates processing
+						try { Thread.sleep(1000); }
+						catch (InterruptedException ex) { ex.printStackTrace(); }
+
+						System.out.println("Thread {" + Thread.currentThread().getName() + "} >> " + msg);
 						pout.println(msg);
 						client.close();
+
+						System.out.println("Thread {" + Thread.currentThread().getName() + "} (End  )\n");
 					}
 				}.run(client);
 			}

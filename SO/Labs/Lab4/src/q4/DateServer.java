@@ -13,7 +13,7 @@ public class DateServer
 			{
 				Socket client = sock.accept();
 
-				new Thread ()
+				Thread worker = new Thread ()
 				{
 					public void run (Socket client) throws IOException
 					{
@@ -23,7 +23,12 @@ public class DateServer
 						pout.println(msg);
 						client.close();
 					}
-				}.run(client);
+				};
+
+				worker.run(client);
+				try {
+					worker.join();
+				} catch (InterruptedException ex) {}
 			}
 		}
 
