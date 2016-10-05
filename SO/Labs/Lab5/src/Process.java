@@ -1,4 +1,4 @@
-class Process
+class Process implements Comparable<Process>
 {
 	// Attributes
 	double arrivalTime;
@@ -21,6 +21,9 @@ class Process
 	public double getBurstTime()   { return this.burstTime; }
 	public int    getPriority()    { return this.priority; }
 
+	// Setters
+	public void setArrivalTime() { this.arrivalTime = arrivalTime; }
+
 	@Override
 	public String toString ()
 	{
@@ -28,5 +31,14 @@ class Process
 		       ", arrival: "  + String.valueOf(getArrivalTime()) +
 		       ", burst: "    + String.valueOf(getBurstTime())   +
 		       ", priority: " + String.valueOf(getPriority())    + " }";
+	}
+
+	@Override
+	public int compareTo (Process process)
+	{
+		if (this.getArrivalTime() == process.getArrivalTime())
+			return 0;
+		
+		return this.getArrivalTime() > process.getArrivalTime() ? 1 : -1;
 	}
 }

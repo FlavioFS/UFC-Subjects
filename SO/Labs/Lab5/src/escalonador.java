@@ -1,5 +1,7 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.AbstractQueue;
+import java.util.Collections;
 
 public class escalonador
 {
@@ -17,7 +19,8 @@ public class escalonador
 		STATISTICS = 1,
 		LIST       = 2;
 
-	static ArrayList<Process> processList;
+	Scheduler scheduler;
+	ArrayList<Process> result;
 
 	/* =====================================
 	 *  Shared args
@@ -30,7 +33,7 @@ public class escalonador
 	/* =====================================
 	 *  Output
 	 * ===================================== */
-	static double processingTime;		// a - this one is a shared output
+	static double processingTime; // a - this one is a shared output
 
 	// Statistics
 	static String algName;
@@ -45,7 +48,8 @@ public class escalonador
 		processCountByQueue;	// j
 
 	// List
-	static String processID;
+	static ArrayList<Process> processList;
+	static ArrayList<Integer> schedule;
 
 
 	/* =====================================
@@ -67,42 +71,48 @@ public class escalonador
 	 * ============================================================================== */
 	public static void main(String[] args) throws IOException
 	{
-		processArgs(args);
-		loadCSV();
-		// runAlgorithm();
-		// output(outType);
-		displayProcessList();
+		if (!processArgs(args)) return;
+		loadCSV(filepath);
+		pickScheduler();
+
+		result = scheduler.schedule();
+
+		output(outType);
 	}
 
 	/* ==============================================================================
 	 *  Management
 	 * ============================================================================== */
-	static void runAlgorithm ()
+	static void pickScheduler ()
 	{
 		switch (alg)
 		{
 			case FCFS:
-				fcfs();
+				scheduler = new SchedulerFCFS(processList);
 				break;
 			
 			case SJF:
-				sjf();
+				scheduler = new SchedulerSJF(processList);
 				break;
 			
 			case SJFP:
-				sjfp();
+				scheduler = new SchedulerSJFP(processList);
 				break;
 			
 			case PRIORITY:
-				priority();
+				scheduler = new SchedulerPriority(processList);
 				break;
 			
 			case PRIORITYP:
-				priorityP();
+				scheduler = new SchedulerPriorityP(processList);
 				break;
 			
 			case RR:
-				rr();
+				scheduler = new SchedulerRR(processList);
+				break;
+
+			default:
+				scheduler = new SchedulerFCFS(processList);
 				break;
 		}
 	}
@@ -135,26 +145,12 @@ public class escalonador
 		}
 
 		// Selects algorithm and processes special args
-		if (args[2].equals("FCFS"))
-		{
-			alg = FCFS;
-		}
-		else if (args[2].equals("SJF"))
-		{
-			alg = SJF;
-		}
-		else if (args[2].equals("SJFP"))
-		{
-			alg = SJFP;
-		}
-		else if (args[2].equals("PRIORITY"))
-		{
-			alg = PRIORITY;
-		}
-		else if (args[2].equals("PRIORITYP"))
-		{
-			alg = PRIORITYP;
-		}
+		if      (args[2].equals("FCFS"))		alg = FCFS;
+		else if (args[2].equals("SJF"))			alg = SJF;
+		else if (args[2].equals("SJFP"))		alg = SJFP;
+		else if (args[2].equals("PRIORITY"))	alg = PRIORITY;
+		else if (args[2].equals("PRIORITYP"))	alg = PRIORITYP;
+
 		else if (args[2].equals("RR"))
 		{
 			if (args.length < 4)
@@ -170,7 +166,9 @@ public class escalonador
 		return true;
 	}
 
-	static void loadCSV () throws IOException
+	// ----------------------------------------
+
+	static void loadCSV (String filepath) throws IOException
 	{
 		BufferedReader br = new BufferedReader (new FileReader(filepath));
 		processList = new ArrayList<Process> ();
@@ -216,64 +214,44 @@ public class escalonador
 		switch (type)
 		{
 			case STATISTICS:
+				Statistics stats = new Statistics (result);
+				stats.calcStatistics();
+				stats.printStatistics();
 				break;
 
 			case LIST:
-				break;
-
-			default:
 				break;
 		}
 	}
 
 	// ----------------------------------------
 
-	static void displayProcessList ()
+	static void printProcessList ()
 	{
 		for (Process elem : processList)
 			System.out.println(elem);
 	}
 
+
 	/* ==============================================================================
 	 *  Algorithms
 	 * ============================================================================== */
-	static void fcfs ()
-	{
+	// static void fcfs (int mode)
+	// {
+	// 	algName = "FCFS";				// a
 
-	}
+	// 	if (mode == STATISTICS)
+	// 	{
+	// 		Statistics stats = new Statistics (processList);
+	// 		stats.calcStatistics();
+	// 		stats.printStatistics();
+	// 	}
 
-	// ----------------------------------------
-
-	static void sjf ()
-	{
-
-	}
-
-	// ----------------------------------------
-
-	static void sjfp ()
-	{
-
-	}
-
-	// ----------------------------------------
-
-	static void priority ()
-	{
-
-	}
-
-	// ----------------------------------------
-
-	static void priorityP ()
-	{
-
-	}
-
-	// ----------------------------------------
-
-	static void rr ()
-	{
-
-	}
+	// 	else if (mode == LIST)
+	// 	{
+	// 		// Display schedule
+	// 		for (int i = 0; i < schedule.size(); i++)
+	// 			System.out.println("{ id: " + processList.get(i).getID() + ", processing time: " + processingTime + " }");	
+	// 	}
+	// }
 }
