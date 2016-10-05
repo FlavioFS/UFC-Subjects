@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.AbstractQueue;
 
 public class escalonador
 {
@@ -240,6 +241,7 @@ public class escalonador
 	static void printStatistics ()
 	{
 		String text =
+			"========== " + algName + " ==========\n" +
 			"CPU usage:                 " + String.valueOf(cpuUsage) +
 			"Throughput:                " + String.valueOf(throughput) +
 			"Turnaround:                " + String.valueOf(turnaround) +
@@ -262,7 +264,7 @@ public class escalonador
 
 		if (mode == STATISTICS)
 		{
-			// We will calculate these
+			// Reset statistics
 			cpuUsage            = 0,
 			throughput          = 0,
 			turnaround          = 0,
@@ -271,6 +273,8 @@ public class escalonador
 			contextSwapTime     = 0,
 			processCount        = 0,
 			processCountByQueue = 0;
+
+
 
 			printStatistics();
 		}
