@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 class Statistics
 {
@@ -50,10 +51,9 @@ class Statistics
 		Collections.sort(sortedList);
 	}
 
-	public void printStatistics ()
+	public String toString ()
 	{
 		String text =
-			"========== " + algName + " ==========\n" +
 			// "CPU usage:                 " + String.valueOf(this.cpuUsage) +
 			"Throughput:                " + String.valueOf(this.throughput) +
 			"Turnaround:                " + String.valueOf(this.turnaround) +
@@ -63,6 +63,6 @@ class Statistics
 			"No. of Processes:          " + String.valueOf(this.processCount) +
 			"No. of Processes by Queue: " + String.valueOf(this.processCountByQueue);
 
-		System.out.println(text);
+		return text;
 	}
 }

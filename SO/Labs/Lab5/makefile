@@ -2,6 +2,7 @@ all:
 	mkdir -p class/
 	javac -d class/ -sourcepath src/ src/Process.java
 	javac -d class/ -sourcepath src/ src/Statistics.java
+	javac -d class/ -sourcepath src/ src/TimeSlot.java
 	javac -d class/ -sourcepath src/ src/Scheduler.java
 	javac -d class/ -sourcepath src/ src/SchedulerFCFS.java
 	javac -d class/ -sourcepath src/ src/SchedulerSJF.java
