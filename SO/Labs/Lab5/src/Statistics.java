@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
 class Statistics
 {
@@ -7,8 +6,8 @@ class Statistics
 	ArrayList<TimeSlot> pList;
 
 	// Statistics
-	double processingTime;		// b
-	double
+	int processingTime;		// b
+	int
 		cpuUsage,				// c
 		throughput,				// d
 		turnaround,				// e

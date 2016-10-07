@@ -1,11 +1,11 @@
 public class TimeSlot
 {
-	private double start;
-	private double end;
+	private int start;
+	private int end;
 	private Process process;
 
 	// Constructor
-	public TimeSlot (Process process, double start, double end)
+	public TimeSlot (Process process, int start, int end)
 	{
 		this.process = process;
 		this.start = start;
@@ -13,13 +13,12 @@ public class TimeSlot
 	}
 
 	// Getters
-	public double  getStart   () { return this.start;   }
-	public double  getEnd     () { return this.end;     }
+	public int  getStart      () { return this.start;   }
+	public int  getEnd        () { return this.end;     }
 	public Process getProcess () { return this.process; }
 
-	public String getID          () { return this.getProcess().getID();          }
-	public double getArrivalTime () { return this.getProcess().getArrivalTime(); }
-	public double getBurstTime   () { return this.getProcess().getBurstTime();   }
-	public int    getPriority    () { return this.getProcess().getPriority();    }
-	public int    getWaitingTime () { return this.getProcess().getWaitingTime(); }
+	public String getID        () { return this.getProcess().getID();           }
+	public int getArrivalTime  () { return this.getProcess().getArrivalTime();  }
+	public int getBurstTime    () { return this.getProcess().getBurstTime();    }
+	public int getPriority     () { return this.getProcess().getPriority();     }
 }

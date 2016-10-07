@@ -11,7 +11,7 @@ class SchedulerPriority extends Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
-		double timer = 0;
+		int timer = 0;
 
 		for (Process proc : this.pList) {
 			TimeSlot newSlot = new TimeSlot (proc, timer, timer + proc.getBurstTime());

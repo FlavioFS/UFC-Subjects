@@ -1,7 +1,5 @@
 import java.io.*;
 import java.util.ArrayList;
-import java.util.AbstractQueue;
-import java.util.Collections;
 
 public class escalonador
 {
@@ -178,23 +176,21 @@ public class escalonador
 			String line = br.readLine();
 			String[] splitLine;
 
-			double arrivalTime;
+			int arrivalTime;
 			String processID;
-			double burstTime;
-			int    priority;
-			int waitingTime;
+			int burstTime;
+			int priority;
 
 			while (line != null)
 			{
 				splitLine = line.split(", ");
 
-				arrivalTime = Double.parseDouble(splitLine[0]);
+				arrivalTime = Integer.parseInt(splitLine[0]);
 				processID   = splitLine[1];
-				burstTime   = Double.parseDouble(splitLine[2]);
+				burstTime   = Integer.parseInt(splitLine[2]);
 				priority    = Integer.parseInt(splitLine[3]);
-				waitingTime = splitLine.length > 4 ? Integer.parseInt(splitLine[4]) : 0;
 
-				processList.add(new Process (processID, arrivalTime, burstTime, priority, waitingTime));
+				processList.add(new Process (processID, arrivalTime, burstTime, priority));
 
 				line = br.readLine();
 			};

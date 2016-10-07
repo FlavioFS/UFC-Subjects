@@ -8,7 +8,8 @@ class SchedulerSJF extends Scheduler
 	{
 		super(pList);
 	}
-
+	
+	// Shortest Job First Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		// Sorts by arrival time
@@ -17,35 +18,43 @@ class SchedulerSJF extends Scheduler
 		// The return value
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
 		
-		// A copies to modify and compute the correct order
+		// A draft copy of pList to compute schedule, and two Queues
 		ArrayList<Process> pListDraft = new ArrayList<Process> (this.pList);
 		LinkedList<Process> readyQueue = new LinkedList<Process>();
-		double timer = 0;
-
 		
-		while (!pListDraft.isEmpty())
+		int timer = pListDraft.get(0).getArrivalTime();
+		boolean nobodyIsReady = true;
+
+		while (!readyQueue.isEmpty() && !pListDraft.isEmpty())
 		{
-			// Sends to ready queue
+			// Sends living processes to ready queue
 			for (Process proc : pListDraft)
 			{
 				if (proc.getArrivalTime() <= timer)
 				{
 					readyQueue.add(proc);
 					pListDraft.remove(proc);
+					nobodyIsReady = false;
 				}
 			}
 			
+			// No process sent to ready queue
+			if (nobodyIsReady)
+			{
+				timer = pListDraft.get(0).getArrivalTime();
+				nobodyIsReady = true;
+				continue;
+			}
+
+			// Sorts by burst time
 			Collections.sort(readyQueue, Process.BURST_TIME_COMPARATOR);
-			
+
+			// Defines next element
 			Process next = readyQueue.poll();
 			TimeSlot newSlot = new TimeSlot (next, timer, timer + next.getBurstTime());
 			tsList.add(newSlot);
-			timer += next.getBurstTime() + next.getWaitingTime();
-			
-			
+			timer += next.getBurstTime();
 		}
-		
-		
 		
 		return tsList;
 	}

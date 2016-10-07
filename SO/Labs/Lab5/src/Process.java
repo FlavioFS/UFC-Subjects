@@ -34,46 +34,43 @@ class Process implements Comparable<Process>
 			return p1.getPriority() > p2.getPriority() ? 1 : -1;
 		}
 	};
-
+	
 	/* ==============================================================================
 	 *  Attributes
 	 * ============================================================================== */
 	// Attributes
 	private String id;
-	private double arrivalTime;
-	private double burstTime;
+	private int arrivalTime;
+	private int burstTime;
 	private int priority;
-	private int waitingTime;
 
 	// Constructors
-	public Process (String id, double arrivalTime, double burstTime, int priority, int waitingTime)
+	public Process (String id, int arrivalTime, int burstTime, int priority)
 	{
 		this.id          = id;
 		this.arrivalTime = arrivalTime;
 		this.burstTime   = burstTime;
 		this.priority    = priority;
-		this.waitingTime = waitingTime;
-	}
-	
-	public Process (String id, double arrivalTime, double burstTime, int priority)
-	{
-		this(id, arrivalTime, burstTime, priority, 0);
 	}
 
 	// Getters
-	public String getID()          { return this.id;          }
-	public double getArrivalTime() { return this.arrivalTime; }
-	public double getBurstTime()   { return this.burstTime;   }
-	public int    getPriority()    { return this.priority;    }
-	public int    getWaitingTime() { return this.waitingTime; }
+	public String getID()        { return this.id;           }
+	public int getArrivalTime()  { return this.arrivalTime;  }
+	public int getBurstTime()    { return this.burstTime;    }
+	public int getPriority()     { return this.priority;     }
+	
+	public void accessCPU (int dt)
+	{
+		this.burstTime -= dt;
+	}
 
 	@Override
 	public String toString ()
 	{
-		return "{ ID: "       + getID() +
-		       ", arrival: "  + String.valueOf(getArrivalTime()) +
-		       ", burst: "    + String.valueOf(getBurstTime())   +
-		       ", priority: " + String.valueOf(getPriority())    + " }";
+		return "{ ID: "            + getID() +
+		       ", arrival: "       + String.valueOf(getArrivalTime())  +
+		       ", burst: "         + String.valueOf(getBurstTime())    +
+		       ", priority: "      + String.valueOf(getPriority())     + " }";
 	}
 
 	@Override
