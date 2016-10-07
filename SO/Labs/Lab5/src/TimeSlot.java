@@ -21,4 +21,5 @@ public class TimeSlot
 	public double getArrivalTime () { return this.getProcess().getArrivalTime(); }
 	public double getBurstTime   () { return this.getProcess().getBurstTime();   }
 	public int    getPriority    () { return this.getProcess().getPriority();    }
+	public int    getWaitingTime () { return this.getProcess().getWaitingTime(); }
 }

@@ -39,25 +39,33 @@ class Process implements Comparable<Process>
 	 *  Attributes
 	 * ============================================================================== */
 	// Attributes
-	String id;
-	double arrivalTime;
-	double burstTime;
-	int priority;
+	private String id;
+	private double arrivalTime;
+	private double burstTime;
+	private int priority;
+	private int waitingTime;
 
-	// Constructor
-	public Process (String id, double arrivalTime, double burstTime, int priority)
+	// Constructors
+	public Process (String id, double arrivalTime, double burstTime, int priority, int waitingTime)
 	{
 		this.id          = id;
 		this.arrivalTime = arrivalTime;
 		this.burstTime   = burstTime;
 		this.priority    = priority;
+		this.waitingTime = waitingTime;
+	}
+	
+	public Process (String id, double arrivalTime, double burstTime, int priority)
+	{
+		this(id, arrivalTime, burstTime, priority, 0);
 	}
 
 	// Getters
-	public String getID()          { return this.id;   }
+	public String getID()          { return this.id;          }
 	public double getArrivalTime() { return this.arrivalTime; }
-	public double getBurstTime()   { return this.burstTime; }
-	public int    getPriority()    { return this.priority; }
+	public double getBurstTime()   { return this.burstTime;   }
+	public int    getPriority()    { return this.priority;    }
+	public int    getWaitingTime() { return this.waitingTime; }
 
 	@Override
 	public String toString ()

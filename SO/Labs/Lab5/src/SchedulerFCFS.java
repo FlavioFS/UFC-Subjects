@@ -12,7 +12,7 @@ class SchedulerFCFS extends Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		// Sorts by arrival time
-		Collections.sort(pList, Process.ARRIVAL_TIME_COMPARATOR);
+		Collections.sort(this.pList, Process.ARRIVAL_TIME_COMPARATOR);
 
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
 		double timer = this.pList.get(0).getArrivalTime();
@@ -20,7 +20,7 @@ class SchedulerFCFS extends Scheduler
 		for (Process proc : this.pList) {
 			TimeSlot newSlot = new TimeSlot (proc, timer, timer + proc.getBurstTime());
 			tsList.add(newSlot);
-			timer += proc.getBurstTime();
+			timer += proc.getBurstTime() + proc.getWaitingTime();
 		}
 
 		return tsList;

@@ -182,6 +182,7 @@ public class escalonador
 			String processID;
 			double burstTime;
 			int    priority;
+			int waitingTime;
 
 			while (line != null)
 			{
@@ -191,8 +192,9 @@ public class escalonador
 				processID   = splitLine[1];
 				burstTime   = Double.parseDouble(splitLine[2]);
 				priority    = Integer.parseInt(splitLine[3]);
+				waitingTime = splitLine.length > 4 ? Integer.parseInt(splitLine[4]) : 0;
 
-				processList.add(new Process (processID, arrivalTime, burstTime, priority));
+				processList.add(new Process (processID, arrivalTime, burstTime, priority, waitingTime));
 
 				line = br.readLine();
 			};
