@@ -10,17 +10,20 @@ public class Scheduler
 	}
 
 	// The first process always starts at time zero
-	public void trim ()
-	{
-		double start = this.pList.get(0).getArrivalTime();
+	// public void trim ()
+	// {
+	// 	double start = this.pList.get(0).getArrivalTime();
 
-		for (Process elem : this.pList)
-			start = elem.getArrivalTime() < start ? elem.getArrivalTime() : start;
+	// 	for (Process elem : this.pList)
+	// 		start = elem.getArrivalTime() < start ? elem.getArrivalTime() : start;
 
-		for (Process elem : this.pList)
-			elem.setArrivalTime(elem.getArrivalTime() - start);
-	}
+	// 	for (Process elem : this.pList)
+	// 		elem.setArrivalTime(elem.getArrivalTime() - start);
+	// }
 
 	// Abstract scheduling algorithm
-	public abstract ArrayList<Process> schedule (ArrayList<Process> pList);
+	public ArrayList<TimeSlot> schedule ()
+	{
+		return new ArrayList<TimeSlot> ();
+	}
 }

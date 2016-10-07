@@ -3,8 +3,8 @@ import java.util.Collections;
 
 class Statistics
 {
-	// Process list
-	ArrayList<Process> pList;
+	// TimeSlot list
+	ArrayList<TimeSlot> pList;
 
 	// Statistics
 	double processingTime;		// b
@@ -18,7 +18,7 @@ class Statistics
 		processCount,			// i
 		processCountByQueue;	// j
 
-	public Statistics (ArrayList<Process> pList)
+	public Statistics (ArrayList<TimeSlot> pList)
 	{
 		this.pList = pList;
 	}
@@ -35,7 +35,7 @@ class Statistics
 		this.processCount        = 0;	// i 	X
 		this.processCountByQueue = 0;	// j
 
-		for (Process elem : pList)
+		for (TimeSlot elem : pList)
 		{
 			waitingTime += processingTime;							// f
 			processingTime += elem.getBurstTime();					// b
@@ -47,8 +47,8 @@ class Statistics
 		waitingTime /= pList.size();				// f
 		processCount = pList.size();				// i
 
-		ArrayList<Process> sortedList = new ArrayList<Process> (pList);
-		Collections.sort(sortedList);
+		// ArrayList<TimeSlot> sortedList = new ArrayList<TimeSlot> (pList);
+		// Collections.sort(sortedList);
 	}
 
 	public String toString ()

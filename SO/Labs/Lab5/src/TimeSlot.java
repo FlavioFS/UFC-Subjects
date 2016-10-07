@@ -16,4 +16,9 @@ public class TimeSlot
 	public double  getStart   () { return this.start;   }
 	public double  getEnd     () { return this.end;     }
 	public Process getProcess () { return this.process; }
+
+	public String getID          () { return this.getProcess().getID();          }
+	public double getArrivalTime () { return this.getProcess().getArrivalTime(); }
+	public double getBurstTime   () { return this.getProcess().getBurstTime();   }
+	public int    getPriority    () { return this.getProcess().getPriority();    }
 }

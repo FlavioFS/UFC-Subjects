@@ -19,8 +19,8 @@ public class escalonador
 		STATISTICS = 1,
 		LIST       = 2;
 
-	Scheduler scheduler;
-	ArrayList<Process> result;
+	static Scheduler scheduler;
+	static ArrayList<TimeSlot> result;
 
 	/* =====================================
 	 *  Shared args
@@ -108,7 +108,7 @@ public class escalonador
 				break;
 			
 			case RR:
-				scheduler = new SchedulerRR(processList);
+				scheduler = new SchedulerRR(processList, quantum);
 				break;
 
 			default:
@@ -192,7 +192,7 @@ public class escalonador
 				burstTime   = Double.parseDouble(splitLine[2]);
 				priority    = Integer.parseInt(splitLine[3]);
 
-				processList.add(new Process (arrivalTime, processID, burstTime, priority));
+				processList.add(new Process (processID, arrivalTime, burstTime, priority));
 
 				line = br.readLine();
 			};
@@ -216,7 +216,7 @@ public class escalonador
 			case STATISTICS:
 				Statistics stats = new Statistics (result);
 				stats.calcStatistics();
-				stats.printStatistics();
+				System.out.println(stats);
 				break;
 
 			case LIST:

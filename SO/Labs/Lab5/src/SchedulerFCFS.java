@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.Collections;
+
 class SchedulerFCFS extends Scheduler
 {
 	public SchedulerFCFS (ArrayList<Process> pList)
@@ -5,8 +8,21 @@ class SchedulerFCFS extends Scheduler
 		super(pList);
 	}
 
-	public ArrayList<Process> schedule (ArrayList<Process> pList)
+	// FCFS Scheduler
+	public ArrayList<TimeSlot> schedule ()
 	{
-		return pList;
+		// Sorts by arrival time
+		Collections.sort(pList, Process.ARRIVAL_TIME_COMPARATOR);
+
+		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
+		double timer = this.pList.get(0).getArrivalTime();
+
+		for (Process proc : this.pList) {
+			TimeSlot newSlot = new TimeSlot (proc, timer, timer + proc.getBurstTime());
+			tsList.add(newSlot);
+			timer += proc.getBurstTime();
+		}
+
+		return tsList;
 	}
 }
