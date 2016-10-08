@@ -63,15 +63,21 @@ class Statistics
 			this.cpuUsage += ts.getDuration();
 	}
 	
+	// ----------------------------------------
+	
 	private void calcProcessCount ()
 	{
 		this.processCount = this.processList.size();
 	}
+
+	// ----------------------------------------
 	
 	private void calcThroughput ()
 	{
 		this.throughput = this.processCount / this.schedule.get(this.schedule.size()-1).getEnd();
 	}
+
+	// ----------------------------------------
 	
 	private void calcTurnaround ()
 	{
@@ -93,6 +99,8 @@ class Statistics
 		
 		this.turnaround /= this.processCount; // Mean value
 	}
+
+	// ----------------------------------------
 	
 	private void calcWaitingTime ()
 	{
@@ -112,6 +120,8 @@ class Statistics
 		
 		this.waitingTime /= this.processCount; // Mean value
 	}
+
+	// ----------------------------------------
 	
 	private void calcAnswerTime ()
 	{
