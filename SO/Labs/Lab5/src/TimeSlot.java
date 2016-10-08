@@ -13,9 +13,10 @@ public class TimeSlot
 	}
 
 	// Getters
-	public int  getStart      () { return this.start;   }
-	public int  getEnd        () { return this.end;     }
-	public Process getProcess () { return this.process; }
+	public int  getStart      () { return this.start;                      }
+	public int  getEnd        () { return this.end;                        }
+	public int  getDuration   () { return this.getEnd() - this.getStart(); }
+	public Process getProcess () { return this.process;                    }
 
 	public String getID        () { return this.getProcess().getID();           }
 	public int getArrivalTime  () { return this.getProcess().getArrivalTime();  }

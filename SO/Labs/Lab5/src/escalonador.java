@@ -212,7 +212,7 @@ public class escalonador
 		switch (type)
 		{
 			case STATISTICS:
-				Statistics stats = new Statistics (result);
+				Statistics stats = new Statistics (result, processList);
 				stats.calcStatistics();
 				System.out.println(stats);
 				break;

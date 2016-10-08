@@ -3,24 +3,24 @@ import java.util.Collections;
 
 class SchedulerFCFS extends Scheduler
 {
-	public SchedulerFCFS (ArrayList<Process> pList)
+	public SchedulerFCFS (ArrayList<Process> processList)
 	{
-		super(pList);
+		super(processList);
 	}
 
 	// First Come First Served Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		// Sorts by arrival time
-		Collections.sort(this.pList, Process.ARRIVAL_TIME_COMPARATOR);
+		Collections.sort(this.processList, Process.ARRIVAL_TIME_COMPARATOR);
 
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
-		int timer = this.pList.get(0).getArrivalTime();
+		int now = this.processList.get(0).getArrivalTime();
 
-		for (Process proc : this.pList) {
-			TimeSlot newSlot = new TimeSlot (proc, timer, timer + proc.getBurstTime());
+		for (Process proc : this.processList) {
+			TimeSlot newSlot = new TimeSlot (proc, now, now + proc.getBurstTime());
 			tsList.add(newSlot);
-			timer += proc.getBurstTime();
+			now += proc.getBurstTime();
 		}
 
 		return tsList;

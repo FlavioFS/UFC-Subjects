@@ -4,22 +4,22 @@ import java.util.LinkedList;
 
 class SchedulerSJFP extends Scheduler
 {
-	public SchedulerSJFP (ArrayList<Process> pList)
+	public SchedulerSJFP (ArrayList<Process> processList)
 	{
-		super(pList);
+		super(processList);
 	}
 
 	// Shortest Job First Preemptive Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		// Sorts by arrival time
-		Collections.sort(this.pList, Process.ARRIVAL_TIME_COMPARATOR);
+		Collections.sort(this.processList, Process.ARRIVAL_TIME_COMPARATOR);
 		
 		// The return value
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
 		
-		// A draft copy of pList to compute schedule, and two Queues
-		ArrayList<Process> processHistory = new ArrayList<Process> (this.pList);
+		// A draft copy of processList to compute schedule, and two Queues
+		ArrayList<Process> processHistory = new ArrayList<Process> (this.processList);
 		LinkedList<Process> readyQueue = new LinkedList<Process>();
 		
 		int now = processHistory.get(0).getArrivalTime();
@@ -40,7 +40,7 @@ class SchedulerSJFP extends Scheduler
 			// (when there is an interval such that no process arrives)
 			if (readyQueue.isEmpty())
 			{
-				now = processHistory.get(0).getArrivalTime();
+				now = processHistory.get(0).getArrivalTime(); // Jumps to first process in history
 				continue;
 			}
 

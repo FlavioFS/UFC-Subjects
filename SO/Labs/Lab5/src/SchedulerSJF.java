@@ -4,45 +4,43 @@ import java.util.LinkedList;
 
 class SchedulerSJF extends Scheduler
 {
-	public SchedulerSJF (ArrayList<Process> pList)
+	public SchedulerSJF (ArrayList<Process> processList)
 	{
-		super(pList);
+		super(processList);
 	}
 	
 	// Shortest Job First Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		// Sorts by arrival time
-		Collections.sort(this.pList, Process.ARRIVAL_TIME_COMPARATOR);
+		Collections.sort(this.processList, Process.ARRIVAL_TIME_COMPARATOR);
 		
 		// The return value
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
 		
-		// A draft copy of pList to compute schedule, and two Queues
-		ArrayList<Process> pListDraft = new ArrayList<Process> (this.pList);
+		// A draft copy of processList to compute schedule, and two Queues
+		ArrayList<Process> processHistory = new ArrayList<Process> (this.processList);
 		LinkedList<Process> readyQueue = new LinkedList<Process>();
 		
-		int timer = pListDraft.get(0).getArrivalTime();
-		boolean nobodyIsReady = true;
+		int now = processHistory.get(0).getArrivalTime();
 
-		while (!readyQueue.isEmpty() && !pListDraft.isEmpty())
+		while (!readyQueue.isEmpty() && !processHistory.isEmpty())
 		{
 			// Sends living processes to ready queue
-			for (Process proc : pListDraft)
+			for (Process proc : processHistory)
 			{
-				if (proc.getArrivalTime() <= timer)
+				if (proc.getArrivalTime() <= now)
 				{
 					readyQueue.add(proc);
-					pListDraft.remove(proc);
-					nobodyIsReady = false;
+					processHistory.remove(proc);
 				}
 			}
 			
 			// No process sent to ready queue
-			if (nobodyIsReady)
+			// (when there is an interval such that no process arrives)
+			if (readyQueue.isEmpty())
 			{
-				timer = pListDraft.get(0).getArrivalTime();
-				nobodyIsReady = true;
+				now = processHistory.get(0).getArrivalTime(); // Jumps to first process in history
 				continue;
 			}
 
@@ -51,9 +49,9 @@ class SchedulerSJF extends Scheduler
 
 			// Defines next element
 			Process next = readyQueue.poll();
-			TimeSlot newSlot = new TimeSlot (next, timer, timer + next.getBurstTime());
+			TimeSlot newSlot = new TimeSlot (next, now, now + next.getBurstTime());
 			tsList.add(newSlot);
-			timer += next.getBurstTime();
+			now += next.getBurstTime();
 		}
 		
 		return tsList;
