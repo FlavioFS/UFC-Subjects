@@ -19,68 +19,55 @@ class SchedulerSJFP extends Scheduler
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
 		
 		// A draft copy of pList to compute schedule, and two Queues
-		ArrayList<Process> pListDraft = new ArrayList<Process> (this.pList);
+		ArrayList<Process> processHistory = new ArrayList<Process> (this.pList);
 		LinkedList<Process> readyQueue = new LinkedList<Process>();
 		
-		int timer = pListDraft.get(0).getArrivalTime();
-		boolean nobodyIsReady = true;
+		int now = processHistory.get(0).getArrivalTime();
 
-		while (!readyQueue.isEmpty() && !pListDraft.isEmpty())
+		while (!readyQueue.isEmpty() && !processHistory.isEmpty())
 		{
 			// Sends living processes to ready queue
-			for (Process proc : pListDraft)
+			for (Process proc : processHistory)
 			{
-				if (proc.getArrivalTime() <= timer)
+				if (proc.getArrivalTime() <= now)
 				{
 					readyQueue.add(proc);
-					pListDraft.remove(proc);
-					nobodyIsReady = false;
+					processHistory.remove(proc);
 				}
 			}
 			
 			// No process sent to ready queue
-			if (nobodyIsReady)
+			// (when there is an interval such that no process arrives)
+			if (readyQueue.isEmpty())
 			{
-				timer = pListDraft.get(0).getArrivalTime();
-				nobodyIsReady = true;
+				now = processHistory.get(0).getArrivalTime();
 				continue;
 			}
 
 			// Sorts by burst time
 			Collections.sort(readyQueue, Process.BURST_TIME_COMPARATOR);
 
-			// Next candidate (not removed from ready queue yet)
-			Process next = readyQueue.peek();
+			Process next = readyQueue.poll();	// Selects next candidate
+			int duration = next.getBurstTime(); // Default duration when no interruption occurs
 			
-			boolean interrupted = false;
-			
-			for (Process proc : pListDraft)
+			for (Process proc : processHistory)
 			{
-				// A process arrives before the next candidate ends and
-				// it will finish before the next candidate
-				if ( (proc.getArrivalTime() < timer + next.getBurstTime()) &&
-					 (proc.getBurstTime() + proc.getArrivalTime() < next.getBurstTime() + timer ) )
+				/* "A process arrives before the next process ends"
+				 *   and
+				 * "it will finish sooner"
+				 */
+				if ( (proc.getArrivalTime() < now + next.getBurstTime()) &&
+					 (proc.getBurstTime() + proc.getArrivalTime() < next.getBurstTime() + now ) )
 				{
-					next = proc;
-					interrupted = true;
+					duration = proc.getArrivalTime() - now;
+					break;
 				}
 			}
 			
-			int duration;
-			if (interrupted)
-			{
-				duration = next.getArrivalTime() - timer;
-			}
-			else
-			{
-				duration = next.getBurstTime();
-			}
-			
-			next = readyQueue.poll();
+			TimeSlot newSlot = new TimeSlot (next, now, now + duration);
 			next.accessCPU(duration);	// Burst time is smaller now
-			TimeSlot newSlot = new TimeSlot (next, timer, timer + duration);
 			tsList.add(newSlot);
-			timer += duration;
+			now += duration;
 		}
 		
 		return tsList;
