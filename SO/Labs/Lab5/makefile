@@ -8,6 +8,6 @@ all:
 	javac -d class/ -sourcepath src/ src/SchedulerSJF.java
 	javac -d class/ -sourcepath src/ src/SchedulerSJFP.java
 	javac -d class/ -sourcepath src/ src/SchedulerRR.java
-	# javac -d class/ -sourcepath src/ src/SchedulerPriority.java
-	# javac -d class/ -sourcepath src/ src/SchedulerPriorityP.java
+	javac -d class/ -sourcepath src/ src/SchedulerPriority.java
+	javac -d class/ -sourcepath src/ src/SchedulerPriorityP.java
 	javac -d class/ -sourcepath src/ src/escalonador.java
