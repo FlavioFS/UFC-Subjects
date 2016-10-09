@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 class SchedulerPriority extends Scheduler
 {
+	public static final float DEFAULT_AGING = 0.2f; 
+	
 	public SchedulerPriority (ArrayList<Process> pList)
 	{
 		super(pList);
@@ -54,6 +56,12 @@ class SchedulerPriority extends Scheduler
 			TimeSlot newSlot = new TimeSlot (next, now, now + next.getBurstTime());
 			tsList.add(newSlot);
 			now += next.getBurstTime();
+			
+			// Aging: anti-starvation
+			int last = readyQueue.size()-1;
+			if (last > 0)
+				for (int i = 0; i < readyQueue.size(); i++)
+					readyQueue.get(i).aging(SchedulerPriority.DEFAULT_AGING * i/last);
 		}
 		
 		return tsList;

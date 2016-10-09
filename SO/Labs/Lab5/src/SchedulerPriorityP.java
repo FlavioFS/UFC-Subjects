@@ -46,13 +46,15 @@ class SchedulerPriorityP extends Scheduler
 				continue;
 			}
 
-			// Sorts by burst time
+			// Sorts by priority in first instance, an then by burst time in case of draw
 			Collections.sort(readyQueue, Process.PRIORITY_BURST_COMPARATOR);
-
+			
+			// Defines next element
 			Process next = readyQueue.peek();	// Selects next candidate
 			int duration = next.getBurstTime(); // Default duration when no interruption occurs
 			boolean interrupted = false;
 			
+			// Interruption check
 			for (Process proc : processHistory)
 			{
 				/* "A process arrives before the next process ends"
@@ -68,11 +70,18 @@ class SchedulerPriorityP extends Scheduler
 				}
 			}
 			
+			// Assigns time slot
 			if (!interrupted) next = readyQueue.poll(); 
 			TimeSlot newSlot = new TimeSlot (next, now, now + duration);
 			next.accessCPU(duration);	// Burst time is smaller now
 			tsList.add(newSlot);
 			now += duration;
+			
+			// Aging: anti-starvation
+			int last = readyQueue.size()-1;
+			if (last > 0)
+				for (int i = 0; i < readyQueue.size(); i++)
+					readyQueue.get(i).aging(SchedulerPriority.DEFAULT_AGING * i/last);
 		}
 		
 		return tsList;
