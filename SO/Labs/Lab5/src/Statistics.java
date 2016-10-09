@@ -104,7 +104,7 @@ class Statistics
 				TimeSlot ts = this.schedule.get(i);
 				if ( ts.getProcess().equals(proc) )
 				{
-					this.turnaround += ts.getEnd();
+					this.turnaround += ts.getEnd() - proc.getArrivalTime();
 					break;
 				}
 			}
@@ -135,7 +135,17 @@ class Statistics
 			for (int i = 0; i < end; i++)
 			{
 				ts = this.schedule.get(i);
-				if (!ts.equals(proc))
+				
+				// Ignores slot when the process did not arrive yet or when its processing 
+				if (proc.getArrivalTime() > ts.getEnd() || ts.getProcess().equals(proc))
+					continue;
+				
+				// Arrived during this Time Slot
+				if (proc.getArrivalTime() > ts.getStart())
+					this.waitingTime += ts.getEnd() - proc.getArrivalTime();
+				
+				// Arrived previously
+				else
 					this.waitingTime += ts.getDuration();
 			}
 		}
@@ -157,7 +167,7 @@ class Statistics
 				TimeSlot ts = this.schedule.get(i);
 				if ( ts.getProcess().equals(proc) )
 				{
-					this.answerTime += ts.getStart();
+					this.answerTime += ts.getStart() - proc.getArrivalTime();
 					break;
 				}
 			}

@@ -86,30 +86,37 @@ public class escalonador
 		switch (alg)
 		{
 			case FCFS:
+				algName = "FCFS";
 				scheduler = new SchedulerFCFS(processList);
 				break;
 			
 			case SJF:
+				algName = "SJF";
 				scheduler = new SchedulerSJF(processList);
 				break;
 			
 			case SJFP:
+				algName = "SJFP";
 				scheduler = new SchedulerSJFP(processList);
 				break;
 			
 			case PRIORITY:
+				algName = "PRIORITY";
 				scheduler = new SchedulerPriority(processList);
 				break;
 			
 			case PRIORITYP:
+				algName = "PRIORITYP";
 				scheduler = new SchedulerPriorityP(processList);
 				break;
 			
 			case RR:
+				algName = "RR";
 				scheduler = new SchedulerRR(processList, quantum);
 				break;
 
 			default:
+				algName = "FCFS";
 				scheduler = new SchedulerFCFS(processList);
 				break;
 		}
@@ -146,31 +153,26 @@ public class escalonador
 		if (args[2].equals("FCFS"))
 		{
 			alg = FCFS;
-			algName = "FCFS";
 		}
 		
 		else if (args[2].equals("SJF"))
 		{
 			alg = SJF;
-			algName = "SJF";
 		}
 		
 		else if (args[2].equals("SJFP"))
 		{
 			alg = SJFP;
-			algName = "SJFP";
 		}
 
 		else if (args[2].equals("PRIORITY"))
 		{
 			alg = PRIORITY;
-			algName = "PRIORITY";
 		}
 
 		else if (args[2].equals("PRIORITYP"))
 		{
 			alg = PRIORITYP;
-			algName = "PRIORITYP";
 		}
 
 
@@ -183,7 +185,6 @@ public class escalonador
 			}
 
 			alg = RR;
-			algName = "RR";
 			quantum = Integer.parseInt(args[3]);
 		}
 
@@ -246,12 +247,20 @@ public class escalonador
 			case STATISTICS:
 				Statistics stats = new Statistics (result, processList);
 				stats.calcStatistics();
-				System.out.println("================================\n  " + algName +  "\n================================");
+				System.out.println
+				(
+					"================================\n  " +
+					algName + " - STATISTICS\n================================"
+				);
 				System.out.println(stats + "\n");
 				break;
 
 			case LIST:
-				System.out.println("================================\n  " + algName +  "\n================================");
+				System.out.println
+				(
+					"================================\n  " +
+					algName +  " - LIST\n================================"
+				);
 				for (int i = 0; i < result.size(); i++)
 				{
 					TimeSlot ts = result.get(i);
