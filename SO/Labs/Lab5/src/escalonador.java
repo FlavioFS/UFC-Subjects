@@ -165,12 +165,12 @@ public class escalonador
 			alg = SJFP;
 		}
 
-		else if (args[2].equals("PRIORITY"))
+		else if (args[2].equals("PRIORITY") || args[2].equals("Priority"))
 		{
 			alg = PRIORITY;
 		}
 
-		else if (args[2].equals("PRIORITYP"))
+		else if (args[2].equals("PRIORITYP") || args[2].equals("PriorityP"))
 		{
 			alg = PRIORITYP;
 		}

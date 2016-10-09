@@ -18,13 +18,15 @@ class Statistics
 		waitingTime,			// f
 		answerTime,				// g
 		contextSwap;		// h
-
+	
+	/** Use calcStatistics() to calculate, and toString() to display the result. */
 	public Statistics (ArrayList<TimeSlot> schedule, ArrayList<Process> processList)
 	{
 		this.schedule = schedule;
 		this.processList = processList;
 	}
 
+	/** Calculate statistics for an ArrayList<'TimeSlot'> scheduling */
 	public void calcStatistics ()
 	{
 		// 1. Required for some of the others
@@ -43,6 +45,7 @@ class Statistics
 		// process count by queue??
 	}
 
+	/** Display statistics */
 	public String toString ()
 	{
 		String text =

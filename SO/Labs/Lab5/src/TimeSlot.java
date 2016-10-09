@@ -21,5 +21,5 @@ public class TimeSlot
 	public String getID        () { return this.getProcess().getID();           }
 	public int getArrivalTime  () { return this.getProcess().getArrivalTime();  }
 	public int getBurstTime    () { return this.getProcess().getBurstTime();    }
-	public int getPriority     () { return this.getProcess().getPriority();     }
+	public float getPriority   () { return this.getProcess().getPriority();     }
 }

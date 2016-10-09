@@ -5,6 +5,7 @@ class Process implements Comparable<Process>
 	/* ==============================================================================
 	 *  Comparators
 	 * ============================================================================== */
+	/** Sorting criterion: Arrival Time */
 	public static final Comparator<Process> ARRIVAL_TIME_COMPARATOR = new Comparator <Process> ()
 	{
 		@Override
@@ -15,6 +16,7 @@ class Process implements Comparable<Process>
 		}
 	};
 
+	/** Sorting criterion: Burst Time */
 	public static final Comparator<Process> BURST_TIME_COMPARATOR = new Comparator <Process> ()
 	{
 		@Override
@@ -25,12 +27,18 @@ class Process implements Comparable<Process>
 		}
 	};
 
-	public static final Comparator<Process> PRIORITY_COMPARATOR = new Comparator <Process> ()
+	/** Sorting criteria:
+	  *   1. Priority;
+	  *   2. Burst time;
+	  */
+	public static final Comparator<Process> PRIORITY_BURST_COMPARATOR = new Comparator <Process> ()
 	{
 		@Override
 		public int compare (Process p1, Process p2)
 		{
-			if (p1.getPriority() == p2.getPriority()) return 0;
+			if (p1.getPriority() == p2.getPriority())
+				return Process.BURST_TIME_COMPARATOR.compare(p1, p2);
+			
 			return p1.getPriority() > p2.getPriority() ? 1 : -1;
 		}
 	};
@@ -42,10 +50,10 @@ class Process implements Comparable<Process>
 	private String id;
 	private int arrivalTime;
 	private int burstTime;
-	private int priority;
+	private float priority;
 
 	// Constructors
-	public Process (String id, int arrivalTime, int burstTime, int priority)
+	public Process (String id, int arrivalTime, int burstTime, float priority)
 	{
 		this.id          = id;
 		this.arrivalTime = arrivalTime;
@@ -57,11 +65,16 @@ class Process implements Comparable<Process>
 	public String getID()        { return this.id;           }
 	public int getArrivalTime()  { return this.arrivalTime;  }
 	public int getBurstTime()    { return this.burstTime;    }
-	public int getPriority()     { return this.priority;     }
+	public float getPriority()   { return this.priority;     }
 	
 	public void accessCPU (int dt)
 	{
 		this.burstTime -= dt;
+	}
+	
+	public void aging (float dp)
+	{
+		this.priority += dp;
 	}
 
 	@Override
