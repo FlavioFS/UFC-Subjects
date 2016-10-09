@@ -143,21 +143,47 @@ public class escalonador
 		}
 
 		// Selects algorithm and processes special args
-		if      (args[2].equals("FCFS"))		alg = FCFS;
-		else if (args[2].equals("SJF"))			alg = SJF;
-		else if (args[2].equals("SJFP"))		alg = SJFP;
-		else if (args[2].equals("PRIORITY"))	alg = PRIORITY;
-		else if (args[2].equals("PRIORITYP"))	alg = PRIORITYP;
+		if (args[2].equals("FCFS"))
+		{
+			alg = FCFS;
+			algName = "FCFS";
+		}
+		
+		else if (args[2].equals("SJF"))
+		{
+			alg = SJF;
+			algName = "SJF";
+		}
+		
+		else if (args[2].equals("SJFP"))
+		{
+			alg = SJFP;
+			algName = "SJFP";
+		}
+
+		else if (args[2].equals("PRIORITY"))
+		{
+			alg = PRIORITY;
+			algName = "PRIORITY";
+		}
+
+		else if (args[2].equals("PRIORITYP"))
+		{
+			alg = PRIORITYP;
+			algName = "PRIORITYP";
+		}
+
 
 		else if (args[2].equals("RR"))
 		{
 			if (args.length < 4)
 			{
-				System.out.println("Usage: escalonador <input_file.csv> <output_mode> RR <quantum>");
+				System.out.println("Usage: escalonador <input_file.csv> <output_mode> RR <quantum>\n");
 				return false; 
 			}
 
 			alg = RR;
+			algName = "RR";
 			quantum = Integer.parseInt(args[3]);
 		}
 
@@ -183,6 +209,12 @@ public class escalonador
 
 			while (line != null)
 			{
+				if (line.charAt(0) == '#')
+				{
+					line = br.readLine();					
+					continue;
+				}
+				
 				splitLine = line.split(", ");
 
 				arrivalTime = Integer.parseInt(splitLine[0]);
@@ -214,10 +246,23 @@ public class escalonador
 			case STATISTICS:
 				Statistics stats = new Statistics (result, processList);
 				stats.calcStatistics();
-				System.out.println(stats);
+				System.out.println("================================\n  " + algName +  "\n================================");
+				System.out.println(stats + "\n");
 				break;
 
 			case LIST:
+				System.out.println("================================\n  " + algName +  "\n================================");
+				for (int i = 0; i < result.size(); i++)
+				{
+					TimeSlot ts = result.get(i);
+					System.out.println
+					(
+						"---- Time Slot " + String.valueOf(i) + " ----\n" +
+						"Process:   " + ts.getProcess().toString() + "\n" +
+						"Starts at: " + String.valueOf(ts.getStart()) + "\n" +
+						"Ends at:   " + String.valueOf(ts.getEnd()) + "\n"
+					);
+				}
 				break;
 		}
 	}

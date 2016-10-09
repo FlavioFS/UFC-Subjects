@@ -24,15 +24,17 @@ class SchedulerSJFP extends Scheduler
 		
 		int now = processHistory.get(0).getArrivalTime();
 
-		while (!readyQueue.isEmpty() && !processHistory.isEmpty())
+		while (!(readyQueue.isEmpty() && processHistory.isEmpty()))
 		{
 			// Sends living processes to ready queue
-			for (Process proc : processHistory)
+			for (int i = 0; i < processHistory.size(); i++)
 			{
+				Process proc = processHistory.get(i);
 				if (proc.getArrivalTime() <= now)
 				{
 					readyQueue.add(proc);
-					processHistory.remove(proc);
+					processHistory.remove(i);
+					i--;
 				}
 			}
 			
@@ -47,8 +49,9 @@ class SchedulerSJFP extends Scheduler
 			// Sorts by burst time
 			Collections.sort(readyQueue, Process.BURST_TIME_COMPARATOR);
 
-			Process next = readyQueue.poll();	// Selects next candidate
+			Process next = readyQueue.peek();	// Selects next candidate
 			int duration = next.getBurstTime(); // Default duration when no interruption occurs
+			boolean interrupted = false;
 			
 			for (Process proc : processHistory)
 			{
@@ -60,10 +63,12 @@ class SchedulerSJFP extends Scheduler
 					 (proc.getBurstTime() + proc.getArrivalTime() < next.getBurstTime() + now ) )
 				{
 					duration = proc.getArrivalTime() - now;
+					interrupted = true;
 					break;
 				}
 			}
 			
+			if (!interrupted) next = readyQueue.poll(); 
 			TimeSlot newSlot = new TimeSlot (next, now, now + duration);
 			next.accessCPU(duration);	// Burst time is smaller now
 			tsList.add(newSlot);
