@@ -17,7 +17,7 @@ class Statistics
 		turnaround,				// e
 		waitingTime,			// f
 		answerTime,				// g
-		contextSwapTime;		// h
+		contextSwap;		// h
 
 	public Statistics (ArrayList<TimeSlot> schedule, ArrayList<Process> processList)
 	{
@@ -37,23 +37,24 @@ class Statistics
 		this.calcTurnaround();
 		this.calcWaitingTime();
 		this.calcAnswerTime();
+		this.calcContextSwap();
 		
 		// context swap??
-		// process count bu queue??
+		// process count by queue??
 	}
 
 	public String toString ()
 	{
 		String text =
-			"Processing Time:           " + String.valueOf(this.processingTime) + "\n" +
-			"CPU usage:                 " + String.valueOf(this.cpuUsage) + "\n" +
-			"Throughput:                " + String.valueOf(this.throughput) + "\n" +
-			"Turnaround:                " + String.valueOf(this.turnaround) + "\n" +
-			"Waiting time:              " + String.valueOf(this.waitingTime) + "\n" +
-			"Answer time:               " + String.valueOf(this.answerTime) + "\n" +
-//			"Context swap time:         " + String.valueOf(this.contextSwapTime) +
-			"No. of Processes:          " + String.valueOf(this.processCount);
-//			"No. of Processes by Queue: " + String.valueOf(this.processCountByQueue);
+			" Processing Time  " + String.format(  "%-7d", this.processingTime) + "  cycles\n" +
+			"       CPU usage  " + String.format(  "%-7d", this.cpuUsage)       + "  cycles\n" +
+			"      Throughput  " + String.format("%-7.4g", this.throughput)     + "  processes/cycle\n" +
+			"      Turnaround  " + String.format("%-7.4g", this.turnaround)     + "  cycles\n" +
+			"    Waiting time  " + String.format("%-7.4g", this.waitingTime)    + "  cycles\n" +
+			"     Answer time  " + String.format("%-7.4g", this.answerTime)     + "  cycles\n" +
+			"   Context swaps  " + String.format("%-7.4g", this.contextSwap)    + "  swaps/cycle\n" +
+			"      #Processes  " + String.format(  "%-7d", this.processCount)   + "  processes\n";
+//			"#Processes/Queue  " + String.valueOf(this.processCountByQueue);
 
 		return text;
 	}
@@ -174,5 +175,12 @@ class Statistics
 		}
 		
 		this.answerTime /= this.processCount; // Mean value
+	}
+	
+	// ----------------------------------------
+	
+	private void calcContextSwap ()
+	{
+		this.contextSwap =  (double) (this.schedule.size() - 1) / this.processingTime; // Mean value
 	}
 }

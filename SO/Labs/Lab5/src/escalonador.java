@@ -249,8 +249,8 @@ public class escalonador
 				stats.calcStatistics();
 				System.out.println
 				(
-					"================================\n  " +
-					algName + " - STATISTICS\n================================"
+					"=========================================\n  " +
+					algName + " - STATISTICS\n========================================="
 				);
 				System.out.println(stats + "\n");
 				break;
