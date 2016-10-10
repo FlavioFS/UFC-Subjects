@@ -56,7 +56,7 @@ class Statistics
 			"    Waiting time  " + String.format("%-7.4g", this.waitingTime)    + "  cycles\n" +
 			"     Answer time  " + String.format("%-7.4g", this.answerTime)     + "  cycles\n" +
 			"   Context swaps  " + String.format("%-7.4g", this.contextSwap)    + "  swaps/cycle\n" +
-			"      #Processes  " + String.format(  "%-7d", this.processCount)   + "  processes\n";
+			"      #Processes  " + String.format(  "%-7d", this.processCount)   + "  processes";
 //			"#Processes/Queue  " + String.valueOf(this.processCountByQueue);
 
 		return text;
