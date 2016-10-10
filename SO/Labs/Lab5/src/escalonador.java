@@ -245,13 +245,13 @@ public class escalonador
 					TimeSlot ts = result.get(i);
 					System.out.println
 					(
-						"──── Time Slot " + String.valueOf(i) + " ────\n" +
-						ts.getProcess().shortString()             + "\n" +
-						"Burst   Start    End   Duration\n"         +
-						String.format("%-6d  ", ts.getBurstTime()) +
+						"┌────────── Time Slot " + String.valueOf(i) + " ───────────\n" +
+						"├─ Burst   Start    End   Duration\n"        +
+						String.format("│  %-6d  ", ts.getBurstTime()) +
 						String.format("%-7d  ", ts.getStart())     +
 						String.format("%-4d  ", ts.getEnd())       +
-						String.format("%-8d", ts.getDuration())    + "\n"
+						String.format("%-8d", ts.getDuration())    + "\n└─ " +
+						ts.getProcess().timeSlotString()              + "\n"
 					);
 				}
 				break;

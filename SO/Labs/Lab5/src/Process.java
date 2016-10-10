@@ -77,11 +77,11 @@ class Process implements Comparable<Process>
 		this.priority += dp;
 	}
 	
-	public String shortString()
+	public String timeSlotString()
 	{
 		return "Process\n"                   +
-			   "  └ ID      Arrival  Priority\n" +
-			   String.format("    %-6s  ", getID()) +
+			   "   └─ ID      Arrival  Priority\n      " +
+			   String.format("%-6s  ", getID()) +
 			   String.format("%-7d  ", getArrivalTime()) +
 			   String.format("%-8g  ", getPriority());
 	}
