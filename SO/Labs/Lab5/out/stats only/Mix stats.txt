@@ -1,0 +1,288 @@
+╔════════════════════╦════════════════════╗
+║ FCFS               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJF                ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJFP               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  55.60    cycles
+    Waiting time  8.800    cycles
+     Answer time  8.400    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ RR                 ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  62.40    cycles
+    Waiting time  15.60    cycles
+     Answer time  11.00    cycles
+   Context swaps  0.04106  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITY           ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITYP          ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  57.00    cycles
+    Waiting time  10.20    cycles
+     Answer time  10.00    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ FCFS               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJF                ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJFP               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  55.60    cycles
+    Waiting time  8.800    cycles
+     Answer time  8.400    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ RR                 ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  62.40    cycles
+    Waiting time  15.60    cycles
+     Answer time  11.00    cycles
+   Context swaps  0.04106  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITY           ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITYP          ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  57.00    cycles
+    Waiting time  10.20    cycles
+     Answer time  10.00    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ FCFS               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJF                ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJFP               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  55.60    cycles
+    Waiting time  8.800    cycles
+     Answer time  8.400    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ RR                 ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  62.40    cycles
+    Waiting time  15.60    cycles
+     Answer time  11.00    cycles
+   Context swaps  0.04106  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITY           ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITYP          ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  57.00    cycles
+    Waiting time  10.20    cycles
+     Answer time  10.00    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ FCFS               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJF                ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ SJFP               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  55.60    cycles
+    Waiting time  8.800    cycles
+     Answer time  8.400    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ RR                 ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  62.40    cycles
+    Waiting time  15.60    cycles
+     Answer time  11.00    cycles
+   Context swaps  0.04106  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITY           ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+
+╔════════════════════╦════════════════════╗
+║ PRIORITYP          ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  57.00    cycles
+    Waiting time  10.20    cycles
+     Answer time  10.00    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
