@@ -91,29 +91,29 @@ public class escalonador
 				scheduler = new SchedulerFCFS(processList);
 				break;
 			
+			case RR:
+				algName = "RR";
+				scheduler = new SchedulerRR(processList, quantum);
+				break;
+
 			case SJF:
 				algName = "SJF";
-				scheduler = new SchedulerSJF(processList);
+				scheduler = new SchedulerRankSJF(processList);
 				break;
 			
 			case SJFP:
 				algName = "SJFP";
-				scheduler = new SchedulerSJFP(processList);
+				scheduler = new SchedulerRankPreempSJF(processList);
 				break;
 			
 			case PRIORITY:
 				algName = "PRIORITY";
-				scheduler = new SchedulerPriority(processList);
+				scheduler = new SchedulerRankPriority(processList);
 				break;
 			
 			case PRIORITYP:
 				algName = "PRIORITYP";
-				scheduler = new SchedulerPriorityP(processList);
-				break;
-			
-			case RR:
-				algName = "RR";
-				scheduler = new SchedulerRR(processList, quantum);
+				scheduler = new SchedulerRankPreempPriority(processList);
 				break;
 
 			default:

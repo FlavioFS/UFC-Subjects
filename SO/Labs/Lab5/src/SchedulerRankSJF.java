@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-class SchedulerSJF extends SchedulerRanking
+class SchedulerRankSJF extends SchedulerRank
 {
-	public SchedulerSJF (ArrayList<Process> processList)
+	public SchedulerRankSJF (ArrayList<Process> processList)
 	{
 		super(processList, Process.BURST_TIME_COMPARATOR);
 	}

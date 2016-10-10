@@ -2,9 +2,9 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedList;
 
-class SchedulerPriorityP extends SchedulerRankingP
+class SchedulerRankPriority extends SchedulerRank
 {
-	public SchedulerPriorityP (ArrayList<Process> processList)
+	public SchedulerRankPriority (ArrayList<Process> processList)
 	{
 		super(processList, Process.PRIORITY_BURST_COMPARATOR);
 	}

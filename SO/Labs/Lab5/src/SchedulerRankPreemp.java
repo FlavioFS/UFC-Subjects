@@ -3,17 +3,17 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.Comparator;
 
-class SchedulerRanking extends Scheduler
+class SchedulerRankPreemp extends Scheduler
 {
 	protected Comparator<Process> CRITERION;
 
-	public SchedulerRanking (ArrayList<Process> processList, Comparator<Process> criterion)
+	public SchedulerRankPreemp (ArrayList<Process> processList, Comparator<Process> criterion)
 	{
 		super(processList);
 		this.CRITERION = criterion;
 	}
-	
-	// Shortest Job First Scheduler
+
+	// Shortest Job First Preemptive Scheduler
 	public ArrayList<TimeSlot> schedule ()
 	{
 		// Sorts by arrival time
@@ -53,11 +53,30 @@ class SchedulerRanking extends Scheduler
 			// Sorts by burst time
 			Collections.sort(readyQueue, this.CRITERION);
 
-			// Defines next element
-			Process next = readyQueue.poll();
-			TimeSlot newSlot = new TimeSlot (next, now, now + next.getBurstTime(), next.getBurstTime());
+			Process next = readyQueue.peek();	// Selects next candidate
+			int duration = next.getBurstTime(); // Default duration when no interruption occurs
+			boolean interrupted = false;
+			
+			for (Process proc : processHistory)
+			{
+				/* "A process arrives before the next process ends"
+				 *   and
+				 * "it will finish sooner"
+				 */
+				if ( (proc.getArrivalTime() < now + next.getBurstTime()) &&
+					 (proc.getBurstTime() + proc.getArrivalTime() < next.getBurstTime() + now ) )
+				{
+					duration = proc.getArrivalTime() - now;
+					interrupted = true;
+					break;
+				}
+			}
+			
+			if (!interrupted) next = readyQueue.poll(); 
+			TimeSlot newSlot = new TimeSlot (next, now, now + duration, next.getBurstTime());
+			next.accessCPU(duration);	// Burst time is smaller now
 			tsList.add(newSlot);
-			now += next.getBurstTime();
+			now += duration;
 		}
 		
 		return tsList;
