@@ -1,0 +1,6 @@
+# <Arrival Time>, <Process ID>, <Burst Time>, <Priority>
+10, P1, 105, 3
+35, P2, 84, 1
+119, P3, 123, 4
+190, P4, 71, 5
+200, P5, 99, 2

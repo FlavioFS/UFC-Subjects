@@ -17,7 +17,9 @@ class SchedulerFCFS extends Scheduler
 		ArrayList<TimeSlot> tsList = new ArrayList<TimeSlot> ();
 		int now = this.processList.get(0).getArrivalTime();
 
-		for (Process proc : this.processList) {
+		for (Process proc : this.processList)
+		{
+			now = now < proc.getArrivalTime() ? proc.getArrivalTime() : now;
 			TimeSlot newSlot = new TimeSlot (proc, now, now + proc.getBurstTime(), proc.getBurstTime());
 			tsList.add(newSlot);
 			now += proc.getBurstTime();
