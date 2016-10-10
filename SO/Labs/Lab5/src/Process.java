@@ -80,7 +80,7 @@ class Process implements Comparable<Process>
 	public String shortString()
 	{
 		return "Process\n"                   +
-			   "  ┗ ID      Arrival  Priority\n" +
+			   "  └ ID      Arrival  Priority\n" +
 			   String.format("    %-6s  ", getID()) +
 			   String.format("%-7d  ", getArrivalTime()) +
 			   String.format("%-8g  ", getPriority());
