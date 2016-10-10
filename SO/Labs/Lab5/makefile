@@ -5,9 +5,11 @@ all:
 	javac -d class/ -sourcepath src/ src/TimeSlot.java
 	javac -d class/ -sourcepath src/ src/Scheduler.java
 	javac -d class/ -sourcepath src/ src/SchedulerFCFS.java
-	javac -d class/ -sourcepath src/ src/SchedulerSJF.java
-	javac -d class/ -sourcepath src/ src/SchedulerSJFP.java
 	javac -d class/ -sourcepath src/ src/SchedulerRR.java
+	javac -d class/ -sourcepath src/ src/SchedulerRanking.java
+	javac -d class/ -sourcepath src/ src/SchedulerSJF.java
 	javac -d class/ -sourcepath src/ src/SchedulerPriority.java
+	javac -d class/ -sourcepath src/ src/SchedulerRankingP.java
+	javac -d class/ -sourcepath src/ src/SchedulerSJFP.java
 	javac -d class/ -sourcepath src/ src/SchedulerPriorityP.java
 	javac -d class/ -sourcepath src/ src/escalonador.java
