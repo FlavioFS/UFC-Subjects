@@ -1,0 +1,12 @@
+╔════════════════════╦════════════════════╗
+║ FCFS               ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  58.40    cycles
+    Waiting time  11.60    cycles
+     Answer time  11.60    cycles
+   Context swaps  0.01173  swaps/cycle
+      #Processes  5        processes
+

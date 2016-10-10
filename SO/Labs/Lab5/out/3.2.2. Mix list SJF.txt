@@ -1,0 +1,38 @@
+╔════════════════╦════════════════╗
+║ SJF            ║ LIST           ║
+╚════════════════╩════════════════╝
+┌────────── Time Slot 0 ───────────
+├─ Burst   Start    End   Duration
+│  10      0        10    10      
+└─ Process
+   └─ ID      Arrival  Priority
+      P1      0        3.00000   
+
+┌────────── Time Slot 1 ───────────
+├─ Burst   Start    End   Duration
+│  1       10       11    1       
+└─ Process
+   └─ ID      Arrival  Priority
+      P2      2        1.00000   
+
+┌────────── Time Slot 2 ───────────
+├─ Burst   Start    End   Duration
+│  1       11       12    1       
+└─ Process
+   └─ ID      Arrival  Priority
+      P4      3        5.00000   
+
+┌────────── Time Slot 3 ───────────
+├─ Burst   Start    End   Duration
+│  123     119      242   123     
+└─ Process
+   └─ ID      Arrival  Priority
+      P3      119      4.00000   
+
+┌────────── Time Slot 4 ───────────
+├─ Burst   Start    End   Duration
+│  99      242      341   99      
+└─ Process
+   └─ ID      Arrival  Priority
+      P5      200      2.00000   
+

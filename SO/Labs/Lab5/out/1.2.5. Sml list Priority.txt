@@ -1,0 +1,38 @@
+╔════════════════╦════════════════╗
+║ PRIORITY       ║ LIST           ║
+╚════════════════╩════════════════╝
+┌────────── Time Slot 0 ───────────
+├─ Burst   Start    End   Duration
+│  10      0        10    10      
+└─ Process
+   └─ ID      Arrival  Priority
+      P1      0        3.00000   
+
+┌────────── Time Slot 1 ───────────
+├─ Burst   Start    End   Duration
+│  1       10       11    1       
+└─ Process
+   └─ ID      Arrival  Priority
+      P2      2        1.00000   
+
+┌────────── Time Slot 2 ───────────
+├─ Burst   Start    End   Duration
+│  2       11       13    2       
+└─ Process
+   └─ ID      Arrival  Priority
+      P3      2        4.00000   
+
+┌────────── Time Slot 3 ───────────
+├─ Burst   Start    End   Duration
+│  1       13       14    1       
+└─ Process
+   └─ ID      Arrival  Priority
+      P4      3        5.00000   
+
+┌────────── Time Slot 4 ───────────
+├─ Burst   Start    End   Duration
+│  5       16       21    5       
+└─ Process
+   └─ ID      Arrival  Priority
+      P5      16       2.00000   
+

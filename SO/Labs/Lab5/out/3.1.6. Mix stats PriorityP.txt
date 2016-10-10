@@ -1,0 +1,12 @@
+╔════════════════════╦════════════════════╗
+║ PRIORITYP          ║ STATISTICS         ║
+╚════════════════════╩════════════════════╝
+ Processing Time  341      cycles
+       CPU usage  234      cycles
+      Throughput  0.01466  processes/cycle
+      Turnaround  57.00    cycles
+    Waiting time  10.20    cycles
+     Answer time  10.00    cycles
+   Context swaps  0.01466  swaps/cycle
+      #Processes  5        processes
+
