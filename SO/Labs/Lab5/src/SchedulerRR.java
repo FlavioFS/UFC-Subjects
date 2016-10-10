@@ -59,7 +59,7 @@ class SchedulerRR extends Scheduler
 			boolean notOver = next.getBurstTime() > this.quantum;
 			int duration = notOver ? this.quantum : next.getBurstTime();
 			
-			TimeSlot newSlot = new TimeSlot (next, now, now + duration);
+			TimeSlot newSlot = new TimeSlot (next, now, now + duration, next.getBurstTime());
 			next.accessCPU(duration);	// Burst time is smaller now
 			if (notOver) readyQueue.add(next);
 			tsList.add(newSlot);

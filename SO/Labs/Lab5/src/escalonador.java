@@ -131,7 +131,7 @@ public class escalonador
 		if (args.length < 3)
 		{
 			System.out.println("Usage: escalonador <input_file.csv> <output_mode> <algorithm> <specific_arguments>");
-			return false; 
+			return false;
 		}
 
 		// CSV file
@@ -150,38 +150,17 @@ public class escalonador
 		}
 
 		// Selects algorithm and processes special args
-		if (args[2].equals("FCFS"))
-		{
-			alg = FCFS;
-		}
-		
-		else if (args[2].equals("SJF"))
-		{
-			alg = SJF;
-		}
-		
-		else if (args[2].equals("SJFP"))
-		{
-			alg = SJFP;
-		}
-
-		else if (args[2].equals("PRIORITY") || args[2].equals("Priority"))
-		{
-			alg = PRIORITY;
-		}
-
-		else if (args[2].equals("PRIORITYP") || args[2].equals("PriorityP"))
-		{
-			alg = PRIORITYP;
-		}
-
-
+		if (args[2].equals("FCFS"))      alg = FCFS;
+		else if (args[2].equals("SJF"))  alg = SJF;
+		else if (args[2].equals("SJFP")) alg = SJFP;
+		else if (args[2].equals("PRIORITY") || args[2].equals("Priority"))   alg = PRIORITY;
+		else if (args[2].equals("PRIORITYP") || args[2].equals("PriorityP")) alg = PRIORITYP;
 		else if (args[2].equals("RR"))
 		{
 			if (args.length < 4)
 			{
 				System.out.println("Usage: escalonador <input_file.csv> <output_mode> RR <quantum>\n");
-				return false; 
+				return false;
 			}
 
 			alg = RR;
@@ -249,8 +228,8 @@ public class escalonador
 				stats.calcStatistics();
 				System.out.println
 				(
-					"=========================================\n  " +
-					algName + " - STATISTICS\n========================================="
+					"══════════════════════════════════════════\n  " +
+					algName + " - STATISTICS\n══════════════════════════════════════════"
 				);
 				System.out.println(stats + "\n");
 				break;
@@ -258,18 +237,21 @@ public class escalonador
 			case LIST:
 				System.out.println
 				(
-					"================================\n  " +
-					algName +  " - LIST\n================================"
+					"════════════════════════════════\n  " +
+					algName +  " - LIST\n════════════════════════════════"
 				);
 				for (int i = 0; i < result.size(); i++)
 				{
 					TimeSlot ts = result.get(i);
 					System.out.println
 					(
-						"---- Time Slot " + String.valueOf(i) + " ----\n" +
-						"Process:   " + ts.getProcess().toString() + "\n" +
-						"Starts at: " + String.valueOf(ts.getStart()) + "\n" +
-						"Ends at:   " + String.valueOf(ts.getEnd()) + "\n"
+						"──── Time Slot " + String.valueOf(i) + " ────\n" +
+						ts.getProcess().shortString()             + "\n" +
+						"Burst   Start    End   Duration\n"         +
+						String.format("%-6d  ", ts.getBurstTime()) +
+						String.format("%-7d  ", ts.getStart())     +
+						String.format("%-4d  ", ts.getEnd())       +
+						String.format("%-8d", ts.getDuration())    + "\n"
 					);
 				}
 				break;

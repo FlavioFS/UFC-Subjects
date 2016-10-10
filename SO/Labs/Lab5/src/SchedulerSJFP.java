@@ -53,7 +53,6 @@ class SchedulerSJFP extends Scheduler
 			int duration = next.getBurstTime(); // Default duration when no interruption occurs
 			boolean interrupted = false;
 			
-			// Interruption check
 			for (Process proc : processHistory)
 			{
 				/* "A process arrives before the next process ends"
@@ -69,9 +68,8 @@ class SchedulerSJFP extends Scheduler
 				}
 			}
 			
-			// Assigns time slot
 			if (!interrupted) next = readyQueue.poll(); 
-			TimeSlot newSlot = new TimeSlot (next, now, now + duration);
+			TimeSlot newSlot = new TimeSlot (next, now, now + duration, next.getBurstTime());
 			next.accessCPU(duration);	// Burst time is smaller now
 			tsList.add(newSlot);
 			now += duration;

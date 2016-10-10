@@ -51,7 +51,7 @@ class SchedulerSJF extends Scheduler
 
 			// Defines next element
 			Process next = readyQueue.poll();
-			TimeSlot newSlot = new TimeSlot (next, now, now + next.getBurstTime());
+			TimeSlot newSlot = new TimeSlot (next, now, now + next.getBurstTime(), next.getBurstTime());
 			tsList.add(newSlot);
 			now += next.getBurstTime();
 		}

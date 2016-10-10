@@ -76,14 +76,23 @@ class Process implements Comparable<Process>
 	{
 		this.priority += dp;
 	}
-
+	
+	public String shortString()
+	{
+		return "Process\n"                   +
+			   "  ┗ ID      Arrival  Priority\n" +
+			   String.format("    %-6s  ", getID()) +
+			   String.format("%-7d  ", getArrivalTime()) +
+			   String.format("%-8g  ", getPriority());
+	}
+	
 	@Override
 	public String toString ()
 	{
-		return "{ ID: "            + getID() +
+		return "Process(ID: "            + getID() +
 		       ", arrival: "       + String.valueOf(getArrivalTime())  +
 		       ", burst: "         + String.valueOf(getBurstTime())    +
-		       ", priority: "      + String.valueOf(getPriority())     + " }";
+		       ", priority: "      + String.valueOf(getPriority())     + ")";
 	}
 
 	@Override
