@@ -228,8 +228,9 @@ public class escalonador
 				stats.calcStatistics();
 				System.out.println
 				(
-					"══════════════════════════════════════════\n  " +
-					algName + " - STATISTICS\n══════════════════════════════════════════"
+					"╔════════════════════╦════════════════════╗\n" +
+					String.format("║ %-18s ║ STATISTICS         ║\n", algName) +
+					"╚════════════════════╩════════════════════╝"
 				);
 				System.out.println(stats + "\n");
 				break;
@@ -237,8 +238,9 @@ public class escalonador
 			case LIST:
 				System.out.println
 				(
-					"════════════════════════════════\n  " +
-					algName +  " - LIST\n════════════════════════════════"
+					"╔════════════════╦════════════════╗\n" +
+					String.format("║ %-14s ║ LIST           ║\n", algName) +
+					"╚════════════════╩════════════════╝"
 				);
 				for (int i = 0; i < result.size(); i++)
 				{
