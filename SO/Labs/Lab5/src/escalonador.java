@@ -1,5 +1,6 @@
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Locale;
 
 public class escalonador
 {
@@ -229,7 +230,7 @@ public class escalonador
 				System.out.println
 				(
 					"╔════════════════════╦════════════════════╗\n" +
-					String.format("║ %-18s ║ STATISTICS         ║\n", algName) +
+					String.format(Locale.US, "║ %-18s ║ STATISTICS         ║\n", algName) +
 					"╚════════════════════╩════════════════════╝"
 				);
 				System.out.println(stats + "\n");
@@ -239,7 +240,7 @@ public class escalonador
 				System.out.println
 				(
 					"╔════════════════╦════════════════╗\n" +
-					String.format("║ %-14s ║ LIST           ║\n", algName) +
+					String.format(Locale.US, "║ %-14s ║ LIST           ║\n", algName) +
 					"╚════════════════╩════════════════╝"
 				);
 				for (int i = 0; i < result.size(); i++)
@@ -249,10 +250,10 @@ public class escalonador
 					(
 						"┌────────── Time Slot " + String.valueOf(i) + " ───────────\n" +
 						"├─ Burst   Start    End   Duration\n"        +
-						String.format("│  %-6d  ", ts.getBurstTime()) +
-						String.format("%-7d  ", ts.getStart())     +
-						String.format("%-4d  ", ts.getEnd())       +
-						String.format("%-8d", ts.getDuration())    + "\n└─ " +
+						String.format(Locale.US, "│  %-6d  ", ts.getBurstTime()) +
+						String.format(Locale.US, "%-7d  ", ts.getStart())     +
+						String.format(Locale.US, "%-4d  ", ts.getEnd())       +
+						String.format(Locale.US, "%-8d", ts.getDuration())    + "\n└─ " +
 						ts.getProcess().timeSlotString()              + "\n"
 					);
 				}

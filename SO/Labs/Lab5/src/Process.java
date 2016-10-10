@@ -1,4 +1,5 @@
 import java.util.Comparator;
+import java.util.Locale;
 
 class Process implements Comparable<Process>
 {
@@ -81,9 +82,9 @@ class Process implements Comparable<Process>
 	{
 		return "Process\n"                   +
 			   "   └─ ID      Arrival  Priority\n      " +
-			   String.format("%-6s  ", getID()) +
-			   String.format("%-7d  ", getArrivalTime()) +
-			   String.format("%-8g  ", getPriority());
+			   String.format(Locale.US, "%-6s  ", getID()) +
+			   String.format(Locale.US, "%-7d  ", getArrivalTime()) +
+			   String.format(Locale.US, "%-8g  ", getPriority());
 	}
 	
 	@Override

@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Locale;
 
 class Statistics
 {
@@ -49,14 +50,14 @@ class Statistics
 	public String toString ()
 	{
 		String text =
-			" Processing Time  " + String.format(  "%-7d", this.processingTime) + "  cycles\n" +
-			"       CPU usage  " + String.format(  "%-7d", this.cpuUsage)       + "  cycles\n" +
-			"      Throughput  " + String.format("%-7.4g", this.throughput)     + "  processes/cycle\n" +
-			"      Turnaround  " + String.format("%-7.4g", this.turnaround)     + "  cycles\n" +
-			"    Waiting time  " + String.format("%-7.4g", this.waitingTime)    + "  cycles\n" +
-			"     Answer time  " + String.format("%-7.4g", this.answerTime)     + "  cycles\n" +
-			"   Context swaps  " + String.format("%-7.4g", this.contextSwap)    + "  swaps/cycle\n" +
-			"      #Processes  " + String.format(  "%-7d", this.processCount)   + "  processes";
+			" Processing Time  " + String.format(Locale.US,   "%-7d", this.processingTime) + "  cycles\n" +
+			"       CPU usage  " + String.format(Locale.US,   "%-7d", this.cpuUsage)       + "  cycles\n" +
+			"      Throughput  " + String.format(Locale.US, "%-7.4g", this.throughput)     + "  processes/cycle\n" +
+			"      Turnaround  " + String.format(Locale.US, "%-7.4g", this.turnaround)     + "  cycles\n" +
+			"    Waiting time  " + String.format(Locale.US, "%-7.4g", this.waitingTime)    + "  cycles\n" +
+			"     Answer time  " + String.format(Locale.US, "%-7.4g", this.answerTime)     + "  cycles\n" +
+			"   Context swaps  " + String.format(Locale.US, "%-7.4g", this.contextSwap)    + "  swaps/cycle\n" +
+			"      #Processes  " + String.format(Locale.US,   "%-7d", this.processCount)   + "  processes";
 //			"#Processes/Queue  " + String.valueOf(this.processCountByQueue);
 
 		return text;
