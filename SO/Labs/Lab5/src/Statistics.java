@@ -9,16 +9,15 @@ class Statistics
 
 	// Statistics
 	int
-		processingTime,			// b
-		cpuUsage,				// c
-		processCount,			// i
-		processCountByQueue;	// j
+		processingTime,	// b
+		cpuUsage,		// c
+		processCount;	// i
 	double
-		throughput,				// d
-		turnaround,				// e
-		waitingTime,			// f
-		answerTime,				// g
-		contextSwap;		// h
+		throughput,		// d
+		turnaround,		// e
+		waitingTime,	// f
+		answerTime,		// g
+		contextSwap;	// h
 	
 	/** Use calcStatistics() to calculate, and toString() to display the result. */
 	public Statistics (ArrayList<TimeSlot> schedule, ArrayList<Process> processList)
@@ -41,9 +40,6 @@ class Statistics
 		this.calcWaitingTime();
 		this.calcAnswerTime();
 		this.calcContextSwap();
-		
-		// context swap??
-		// process count by queue??
 	}
 
 	/** Display statistics */
@@ -58,7 +54,21 @@ class Statistics
 			"     Answer time  " + String.format(Locale.US, "%-7.4g", this.answerTime)     + "  cycles\n" +
 			"   Context swaps  " + String.format(Locale.US, "%-7.4g", this.contextSwap)    + "  swaps/cycle\n" +
 			"      #Processes  " + String.format(Locale.US,   "%-7d", this.processCount)   + "  processes";
-//			"#Processes/Queue  " + String.valueOf(this.processCountByQueue);
+
+		return text;
+	}
+
+	/** Returns Statistics in *.CSV format
+	  *
+	  */
+	public String csvOutput()
+	{
+		String text =
+			String.format(Locale.US,
+				"%d, %d, %g, %g, %g, %g, %g, %d",
+				this.processingTime, this.cpuUsage, this.throughput, this.turnaround,
+				this.waitingTime, this.answerTime, this.contextSwap, this.processCount
+			);
 
 		return text;
 	}

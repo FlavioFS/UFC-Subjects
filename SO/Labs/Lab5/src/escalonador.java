@@ -16,7 +16,8 @@ public class escalonador
 	// Output enum
 	private static final int
 		STATISTICS = 1,
-		LIST       = 2;
+		LIST       = 2,
+		DEBUG      = 3;
 
 	static Scheduler scheduler;
 	static ArrayList<TimeSlot> result;
@@ -148,6 +149,10 @@ public class escalonador
 			case LIST:
 				outType = LIST;
 				break;
+
+			case DEBUG:
+				outType = DEBUG;
+				break;
 		}
 
 		// Selects algorithm and processes special args
@@ -222,10 +227,11 @@ public class escalonador
 	 * ============================================================================== */
 	static void output (int type)
 	{
+		Statistics stats;
 		switch (type)
 		{
 			case STATISTICS:
-				Statistics stats = new Statistics (result, processList);
+				stats = new Statistics (result, processList);
 				stats.calcStatistics();
 				System.out.println
 				(
@@ -258,6 +264,12 @@ public class escalonador
 					);
 				}
 				break;
+
+			case DEBUG:
+				stats = new Statistics (result, processList);
+				stats.calcStatistics();
+				System.out.println(stats.csvOutput());
+				break;
 		}
 	}
 
@@ -268,27 +280,4 @@ public class escalonador
 		for (Process elem : processList)
 			System.out.println(elem);
 	}
-
-
-	/* ==============================================================================
-	 *  Algorithms
-	 * ============================================================================== */
-	// static void fcfs (int mode)
-	// {
-	// 	algName = "FCFS";				// a
-
-	// 	if (mode == STATISTICS)
-	// 	{
-	// 		Statistics stats = new Statistics (processList);
-	// 		stats.calcStatistics();
-	// 		stats.printStatistics();
-	// 	}
-
-	// 	else if (mode == LIST)
-	// 	{
-	// 		// Display schedule
-	// 		for (int i = 0; i < schedule.size(); i++)
-	// 			System.out.println("{ id: " + processList.get(i).getID() + ", processing time: " + processingTime + " }");	
-	// 	}
-	// }
 }
