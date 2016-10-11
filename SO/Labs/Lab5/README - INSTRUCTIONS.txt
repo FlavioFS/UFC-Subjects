@@ -22,6 +22,6 @@ RUN
 			graphs in Octave/Matlab. Outputs to folder graphs/<file>.csv,
 			where the files may be 'small.csv', 'large.csv', 'mixed.csv'.
 
-			4. Run gengraphs.m in octave to produce comparison graphs in 'graphs/':
-				$ octave
-				> gengraphs
+		$ octave
+		> gengraphs
+			Generates the graphs in folder 'graphs/'.
