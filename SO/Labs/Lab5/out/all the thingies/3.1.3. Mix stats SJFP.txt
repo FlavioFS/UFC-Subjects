@@ -1,12 +1,12 @@
 ╔════════════════════╦════════════════════╗
 ║ SJFP               ║ STATISTICS         ║
 ╚════════════════════╩════════════════════╝
- Processing Time  341      cycles
-       CPU usage  234      cycles
-      Throughput  0.01466  processes/cycle
-      Turnaround  55.60    cycles
-    Waiting time  8.800    cycles
-     Answer time  8.400    cycles
-   Context swaps  0.01466  swaps/cycle
-      #Processes  5        processes
+ Processing Time  609      cycles
+       CPU usage  606      cycles
+      Throughput  0.01642  processes/cycle
+      Turnaround  123.9    cycles
+    Waiting time  63.30    cycles
+     Answer time  6.000    cycles
+   Context swaps  0.01970  swaps/cycle
+      #Processes  10       processes
 

@@ -17,10 +17,10 @@
 
 ┌────────── Time Slot 2 ───────────
 ├─ Burst   Start    End   Duration
-│  123     199      200   1       
+│  200     199      200   1       
 └─ Process
    └─ ID      Arrival  Priority
-      P3      119      4.00000   
+      P1      39       2.00000   
 
 ┌────────── Time Slot 3 ───────────
 ├─ Burst   Start    End   Duration
@@ -31,15 +31,50 @@
 
 ┌────────── Time Slot 4 ───────────
 ├─ Burst   Start    End   Duration
-│  122     299      421   122     
+│  147     299      446   147     
+└─ Process
+   └─ ID      Arrival  Priority
+      P2      220      1.00000   
+
+┌────────── Time Slot 5 ───────────
+├─ Burst   Start    End   Duration
+│  199     446      645   199     
+└─ Process
+   └─ ID      Arrival  Priority
+      P1      39       2.00000   
+
+┌────────── Time Slot 6 ───────────
+├─ Burst   Start    End   Duration
+│  85      645      730   85      
+└─ Process
+   └─ ID      Arrival  Priority
+      P4      139      3.00000   
+
+┌────────── Time Slot 7 ───────────
+├─ Burst   Start    End   Duration
+│  121     730      851   121     
+└─ Process
+   └─ ID      Arrival  Priority
+      P3      299      4.00000   
+
+┌────────── Time Slot 8 ───────────
+├─ Burst   Start    End   Duration
+│  123     851      974   123     
 └─ Process
    └─ ID      Arrival  Priority
       P3      119      4.00000   
 
-┌────────── Time Slot 5 ───────────
+┌────────── Time Slot 9 ───────────
 ├─ Burst   Start    End   Duration
-│  71      421      492   71      
+│  71      974      1045  71      
 └─ Process
    └─ ID      Arrival  Priority
       P4      190      5.00000   
+
+┌────────── Time Slot 10 ───────────
+├─ Burst   Start    End   Duration
+│  113     1045     1158  113     
+└─ Process
+   └─ ID      Arrival  Priority
+      P5      157      5.00000   
 
