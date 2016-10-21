@@ -1,0 +1,46 @@
+import java.util.concurrent.Semaphore;
+
+public class SharedSemaphore {
+	private int _data;
+	
+	// Thread Safe Mechanisms
+	Semaphore writing = new Semaphore (1);
+	Semaphore reading;
+	
+	// Constructor
+	public SharedSemaphore (final int readerPermits) {
+		reading = new Semaphore(readerPermits);
+	}
+	
+	
+	public int read(String id) throws InterruptedException {
+		
+		int rv;
+		try {
+			reading.acquire();
+			
+			// Reading
+			rv = _data;
+			System.out.format("READER %s <<   %d\n", id, _data);
+			
+		} finally {
+			reading.release();
+		}
+		
+		return rv;
+	}
+	
+	public void write(String id, int data) throws InterruptedException {
+		try {
+			writing.acquire();
+			
+			// Writing
+			_data = data;
+			System.out.format("WRITER %s   >> %d\n", id, _data);
+			
+			
+		} finally {
+			writing.release();
+		}
+	}
+}

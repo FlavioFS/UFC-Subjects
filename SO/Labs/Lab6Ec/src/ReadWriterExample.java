@@ -1,10 +1,8 @@
 
 public class ReadWriterExample {
-	private static boolean Even = true;
-	private static boolean Odd = false;
 	
 	public static void main(String[] args) {
-		SharedTSafe sharedResource = new SharedTSafe();
+		SharedMonitor sharedResource = new SharedMonitor();
 		
 		// Readers
 		(new Thread(new Reader("R1", sharedResource))).start();

@@ -1,10 +1,10 @@
 import java.util.Random;
 
 public class Reader implements Runnable {
-	private final SharedTSafe _sharedResource;
+	private final ISharedResource _sharedResource;
 	private String _name;
 	
-	public Reader(final String name, SharedTSafe sharedResource) {
+	public Reader(final String name, ISharedResource sharedResource) {
 		_sharedResource = sharedResource;
 		_name = name;
 	}
@@ -12,15 +12,16 @@ public class Reader implements Runnable {
 	public void run() {
 		Random random = new Random();
 		
+		// Starting Delay
+		try { Thread.sleep(random.nextInt(2000)); }
+		catch (InterruptedException e1) { e1.printStackTrace(); }
+		
 		while (true) {
 			try {
-				Thread.sleep(random.nextInt(2000));
 				_sharedResource.read(_name);
-			} catch (InterruptedException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				Thread.sleep(random.nextInt(6000));
 			}
-
+			catch (InterruptedException e1) { e1.printStackTrace(); }
 		}
 	}
 }

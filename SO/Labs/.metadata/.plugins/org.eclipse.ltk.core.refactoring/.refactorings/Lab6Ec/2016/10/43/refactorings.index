@@ -11,3 +11,6 @@
 1477053093305	Rename field 'dropbox'
 1477053104136	Rename local variable 'dropbox'
 1477053111465	Rename field 'sharedResource'
+1477073391971	Rename type 'SharedTSafe'
+1477075018379	Rename type 'SharedResource'
+1477075227252	Rename field 'writing'
