@@ -1,0 +1,67 @@
+import java.util.concurrent.locks.Condition;
+import java.util.concurrent.locks.Lock;
+import java.util.concurrent.locks.ReentrantLock;
+
+
+public class SharedTSafe {
+	private int data;
+	
+	private boolean writing = false;
+	private boolean reading = true;
+	
+	// Thread Safe Mechanisms
+	Lock lock = new ReentrantLock();
+	Condition condNotWriting  = lock.newCondition();
+	Condition condNotReading  = lock.newCondition();
+	
+	// Local Setters
+	private void setWriting (boolean value) { this.writing = value; }
+	private void setReading (boolean value) { this.reading = value; }
+	
+	// Local Getters
+	private boolean isWriting () { return this.writing; }
+	private boolean isReading () { return this.reading; }
+	
+	
+	public int read() throws InterruptedException {
+		lock.lock();
+		
+		int rv;
+		try {
+			while (isWriting()) {
+				condNotWriting.await();
+			}
+			
+			this.setReading(true);
+			rv = data;
+			System.out.format("%s READER obtem %d.%n", data);
+			this.setReading(false);
+			condNotReading.signal();
+		} finally {
+			lock.unlock();
+		}
+		
+		return rv;
+	}
+	
+	public void write(int newdata) throws InterruptedException {
+		lock.lock();
+		
+		try {
+			while (isReading() || isWriting())
+				condNotReading.await();
+			
+			this.number = number;
+			evenNumber = number % 2 == 0;
+			
+			// Signal
+			if (evenNumber) condNotWriting.signal();
+			else            condOdd.signal();
+			
+			this.setEmpty(false);
+			System.out.format("PRODUTOR gera %d.%n", number);
+		} finally {
+			lock.unlock();
+		}
+	}
+}

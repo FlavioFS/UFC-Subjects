@@ -1,0 +1,22 @@
+import java.util.Random;
+
+public class Writer implements Runnable {
+	private SharedTSafe _sharedResource;
+	
+	public Writer(SharedTSafe sharedResource) {
+		_sharedResource = sharedResource;
+	}
+	
+	public void run() {
+		Random random = new Random();
+		
+		while (true) {
+			int number = random.nextInt(10);
+			
+			try {
+				Thread.sleep(random.nextInt(300));
+				_sharedResource.write(_name, number);
+			} catch (InterruptedException e) { }
+		}
+	}
+}

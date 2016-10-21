@@ -14,9 +14,11 @@
 <coolItem id="org.eclipse.debug.ui.launchActionSet" itemType="typeToolBarContribution" x="60" y="30"/>
 <coolItem id="org.eclipse.debug.ui.main.toolbar" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.search.searchActionSet" itemType="typeToolBarContribution" x="60" y="30"/>
+<coolItem id="org.eclipse.ui.edit.text.actionSet.presentation" itemType="typeToolBarContribution" x="124" y="30"/>
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="232" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typePlaceholder" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
 </coolbarLayout>
@@ -124,7 +126,14 @@
 </perspective>
 </perspectives>
 <workingSets/>
-<navigationHistory/>
+<navigationHistory>
+<editors>
+<editor factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" uri="file:/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Consumer.java"/>
+</editors>
+<item active="true" historyLabel="Consumer.java" index="0">
+<position info="not_deleted" x="0" y="0"/>
+</item>
+</navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
 </page>
 <workbenchWindowAdvisor/>
@@ -140,5 +149,21 @@
 </trimArea>
 </trimLayout>
 </window>
-<mruList/>
+<mruList>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ProducerConsumerExample.java" tooltip="/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/ProducerConsumerExample.java">
+<persistable uri="file:/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/ProducerConsumerExample.java"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Producer.java" tooltip="/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Producer.java">
+<persistable uri="file:/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Producer.java"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Main.java">
+<persistable uri="file:/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Main.java"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Dropbox.java" tooltip="/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Dropbox.java">
+<persistable uri="file:/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Dropbox.java"/>
+</file>
+<file factoryID="org.eclipse.ui.ide.FileStoreEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Consumer.java" tooltip="/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Consumer.java">
+<persistable uri="file:/home/344068/Github/UFC-Subjects/SO/Labs/Lab6/src/Consumer.java"/>
+</file>
+</mruList>
 </workbench>

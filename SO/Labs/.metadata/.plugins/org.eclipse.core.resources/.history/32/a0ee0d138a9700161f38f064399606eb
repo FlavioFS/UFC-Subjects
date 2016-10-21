@@ -1,0 +1,22 @@
+public class Reader implements Runnable {
+	private final SharedTSafe _sharedResource;
+	
+	public Consumer(SharedTSafe sharedResource) {
+		_sharedResource = sharedResource;
+	}
+
+	public void run() {
+		while (true) {
+			try {
+				_sharedResource.read();
+			} catch (InterruptedException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+
+			try {
+				Thread.sleep(random.nextInt(100));
+			} catch (InterruptedException e) { }
+		}
+	}
+}
