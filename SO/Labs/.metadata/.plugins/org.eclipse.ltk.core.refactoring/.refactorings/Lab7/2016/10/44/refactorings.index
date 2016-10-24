@@ -5,3 +5,7 @@
 1477312734949	Rename local variable '_pList'
 1477312740469	Rename local variable '_state'
 1477312744994	Rename local variable '_sstate'
+1477325580214	Rename field '_processList'
+1477325596445	Rename method 'processList'
+1477326273072	Rename method 'free'
+1477326459843	Rename method 'take'

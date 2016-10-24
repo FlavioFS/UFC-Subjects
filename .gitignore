@@ -1,2 +1,11 @@
 *.o
 *.class
+
+# Eclipse
+*.metadata/
+SO/Labs/.metadata/
+*.log
+*.snap
+*.index
+*.dat
+*.history

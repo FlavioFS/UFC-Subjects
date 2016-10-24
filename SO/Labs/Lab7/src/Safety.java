@@ -1,4 +1,3 @@
-
 public class Safety {
 
 	/**
@@ -17,6 +16,9 @@ public class Safety {
 	
 	private static boolean isSafeState (SystemState state)
 	{
+		// TODO Coding this...
+		//while ()
+		
 		return true;
 	}
 }
