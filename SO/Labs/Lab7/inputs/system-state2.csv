@@ -1,0 +1,8 @@
+# First Line: <maxA>, <maxBA>, <maxC>
+# Process Lines: <pID>, <A>, <B>, <C>, <needA>, <needB>, <needC> 
+0, 0, 0
+P0, 0, 1, 0, 0, 0, 0
+P1, 2, 0, 0, 2, 0, 2
+P2, 3, 0, 3, 0, 0, 0
+P3, 2, 1, 1, 1, 0, 0
+P4, 0, 0, 2, 0, 0, 3

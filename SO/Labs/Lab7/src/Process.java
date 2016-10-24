@@ -8,20 +8,37 @@ public class Process
 	private String _id;			// Process name
 	private int _A, _B, _C;		// Resources in use
 	private int _nA, _nB, _nC;	// Resources needed
+	private int _rA, _rB, _rC;	// Resources requested
 	
 	/* ==============================================================================
 	 *  Constructors
 	 * ============================================================================== */
-	public Process (String id, int A, int B, int C, int nA, int nB, int nC)
-	{
-		_id = id;
+	public Process (String id) { _id = id; }
+	
+	/* ==============================================================================
+	 *  Setters
+	 * ============================================================================== */
+	public void setAciveResources (int A, int B, int C){
+		// Active resources
 		_A  = A;
 		_B  = B;
 		_C  = C;
-		_nA = A;
-		_nB = B;
-		_nC = C;
 	}
+	
+	public void setNeededResources (int nA, int nB, int nC) {
+		// Max needed resources
+		_nA = nA;
+		_nB = nB;
+		_nC = nC;
+	}
+	
+	public void setRequestedResources (int rA, int rB, int rC) {
+		// Requested resources
+		_rA = rA;
+		_rB = rB;
+		_rC = rC;
+	}
+	
 	
 	/* ==============================================================================
 	 *  Getters
@@ -35,6 +52,10 @@ public class Process
 	public int getNeedA() { return _nA; }
 	public int getNeedB() { return _nB; }
 	public int getNeedC() { return _nC; }
+	
+	public int getRequestA() { return _rA; }
+	public int getRequestB() { return _rB; }
+	public int getRequestC() { return _rC; }
 
 	
 	/* ==============================================================================
@@ -47,6 +68,12 @@ public class Process
 		_C += dC;
 	}
 	
+	public void free ()
+	{
+		_A = 0;
+		_B = 0;
+		_C = 0;
+	}
 	
 	/* ==============================================================================
 	 *  OUT

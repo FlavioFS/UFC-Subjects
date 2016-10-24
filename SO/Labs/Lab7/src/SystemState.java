@@ -20,7 +20,7 @@ public class SystemState {
 	{
 		_unfinished = new ArrayList<Process> ();
 		_finished = new ArrayList<Process> ();
-		this.loadCSV(filepath);
+		this.loadState(filepath);
 	}
 
 	
@@ -38,14 +38,9 @@ public class SystemState {
 	/* ==============================================================================
 	 *  Methods
 	 * ============================================================================== */
-	public boolean give (Process P, int dA, int dB, int dC)
+	public boolean give (int dA, int dB, int dC)
 	{
-		// Not enough resources
-		if (_A < dA || _B < dB || _C < dC)
-			return false;
-		
 		// Resources available
-		P.receive(dA, dB, dC);
 		_A -= dA;
 		_B -= dB;
 		_C -= dC;
@@ -57,6 +52,7 @@ public class SystemState {
 		_A += P.getA();
 		_B += P.getB();
 		_C += P.getC();
+		P.free();
 	}
 	
 	public void finish (int index)
@@ -66,7 +62,7 @@ public class SystemState {
 		this.free(_P);
 	}
 	
-	public boolean isDone (int index)
+	public boolean isLastTurn (int index)
 	{
 		Process p = _unfinished.get(index);
 		return 	_A >= p.getNeedA() &&
@@ -74,10 +70,32 @@ public class SystemState {
 				_C >= p.getNeedC();
 	}
 	
+	public boolean isExceededRequest (Process proc)
+	{
+		// If the Process exceeds its maximum requests
+		if ( proc.getRequestA() > proc.getNeedA() ||
+			 proc.getRequestB() > proc.getNeedB() ||
+			 proc.getRequestC() > proc.getNeedC())
+			return true;
+		
+		return false;
+	}
+	
+	public boolean isUnfeasibleRequest (Process proc)
+	{
+		// If the system cannot attend this Process now
+		if ( proc.getRequestA() > proc.getNeedA() ||
+			 proc.getRequestB() > proc.getNeedB() ||
+			 proc.getRequestC() > proc.getNeedC())
+			return true;
+		
+		return false;
+	}
+	
 	/* ==============================================================================
 	 *  IN
 	 * ============================================================================== */
-	public void loadCSV (String filepath) throws IOException
+	public void loadState (String filepath) throws IOException
 	{
 		BufferedReader br = new BufferedReader (new FileReader(filepath));
 
@@ -103,6 +121,8 @@ public class SystemState {
 			String processID;	// Process name
 			int A, B, C;		// Resources in use
 			int nA, nB, nC;		// Resources needed
+			line = br.readLine();
+			Process proc;
 			while (line != null)
 			{
 				if (line.charAt(0) == '#')
@@ -116,22 +136,76 @@ public class SystemState {
 				// Parses line
 				processID   = splitLine[0];
 				
+				// Holding
 				A = Integer.parseInt(splitLine[1]);
 				B = Integer.parseInt(splitLine[2]);
 				C = Integer.parseInt(splitLine[3]);
 				
+				// Needed
 				nA = Integer.parseInt(splitLine[4]);
 				nB = Integer.parseInt(splitLine[5]);
 				nC = Integer.parseInt(splitLine[6]);
 				
 				
 				// Adds new Process to list
-				_unfinished.add(new Process (processID, A, B, C, nA, nB, nC));
+				proc = new Process (processID);
+				proc.setAciveResources(A, B, C);
+				proc.setNeededResources(nA, nB, nC);
+				_unfinished.add(proc);
 
 				line = br.readLine();
 			};
 		}
 		finally { br.close(); }
+	}
+	
+	public void loadRequest (String filepath) throws IOException
+	{
+		BufferedReader br = new BufferedReader (new FileReader(filepath));
 
+		try
+		{
+			String line = br.readLine();
+			String[] splitLine;
+			
+			// Skips first comments
+			while (line == null || line.charAt(0) == '#')
+			{
+				line = br.readLine();
+				continue;
+			}
+			
+			// PROCESS RESOURCES (remaining lines)
+			int rA, rB, rC;		// Resources in use
+			line = br.readLine();
+			splitLine = line.split(", ");
+			
+			// Parses line
+			String processID = splitLine[0];
+			
+			// Requested resources
+			rA = Integer.parseInt(splitLine[1]);
+			rB = Integer.parseInt(splitLine[2]);
+			rC = Integer.parseInt(splitLine[3]);
+			
+			// Sets request to Process
+			for (Process proc : _unfinished)
+			{
+				if (proc.getID().equals(processID))
+					proc.setRequestedResources(rA, rB, rC);
+			}
+		}
+		finally { br.close(); }
+	}
+	
+	/* ==============================================================================
+	 *  OUT
+	 * ============================================================================== */
+	public void printFinished()
+	{
+		System.out.print("[" + _finished.get(0).getID());
+		for (int i = 1; i < _finished.size(); i++)
+			System.out.print(", " + _finished.get(i).getID());
+		System.out.println("]");
 	}
 }
