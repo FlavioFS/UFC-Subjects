@@ -1,0 +1,7 @@
+1477310465970	Move file
+1477310813135	Rename field 'processList'
+1477311051461	Rename field 'id'
+1477312722018	Rename type 'ProcessList'
+1477312734949	Rename local variable '_pList'
+1477312740469	Rename local variable '_state'
+1477312744994	Rename local variable '_sstate'

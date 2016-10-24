@@ -1,0 +1,23 @@
+
+public class Safety {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		try
+		{
+			SystemState _sysState = new SystemState("../resource-list.txt");
+			System.out.println("Safety? Is the system safe ? ", isSafeState(_sysState) );
+			
+		}
+		catch (Exception ex) { ex.printStackTrace(); }
+
+	}
+	
+	
+	private static boolean isSafeState (SystemState state)
+	{
+		return true;
+	}
+}
