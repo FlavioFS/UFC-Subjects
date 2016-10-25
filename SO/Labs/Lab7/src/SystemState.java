@@ -33,7 +33,7 @@ public class SystemState {
 	public int getA() { return _A; }
 	public int getB() { return _B; }
 	public int getC() { return _C; }
-
+	
 	
 	/* ==============================================================================
 	 *  Methods
@@ -159,14 +159,15 @@ public class SystemState {
 		finally { br.close(); }
 	}
 	
-	public void loadRequest (String filepath) throws IOException
+	public Process loadRequest (String filepath) throws IOException
 	{
 		BufferedReader br = new BufferedReader (new FileReader(filepath));
-
+		Process rv = null;
+		
 		try
 		{
 			String line = br.readLine();
-			String[] splitLine;
+			String[] splitLine = line.split(", ");
 			
 			// Skips first comments
 			while (line == null || line.charAt(0) == '#')
@@ -177,7 +178,6 @@ public class SystemState {
 			
 			// PROCESS RESOURCES (remaining lines)
 			int rA, rB, rC;		// Resources in use
-			line = br.readLine();
 			splitLine = line.split(", ");
 			
 			// Parses line
@@ -191,11 +191,16 @@ public class SystemState {
 			// Sets request to Process
 			for (Process proc : _unfinished)
 			{
-				if (proc.getID().equals(processID))
+				if (proc.getID().equals(processID)) {
 					proc.setRequestedResources(rA, rB, rC);
+					rv = proc;
+					break;
+				}
 			}
 		}
 		finally { br.close(); }
+		
+		return rv;
 	}
 	
 	/* ==============================================================================
