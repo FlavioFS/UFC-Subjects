@@ -15,6 +15,15 @@ public class Process
 	 * ============================================================================== */
 	public Process (String id) { _id = id; }
 	
+	// Copy Constructor
+	public Process (Process proc)
+	{
+		_id = proc.getID();
+		setAciveResources(proc.getA(), proc.getB(), proc.getC());
+		setNeededResources(proc.getNeedA(), proc.getNeedB(), proc.getNeedC());
+		setRequestedResources(proc.getRequestA(), proc.getRequestB(), proc.getRequestC());
+	}
+	
 	/* ==============================================================================
 	 *  Setters
 	 * ============================================================================== */

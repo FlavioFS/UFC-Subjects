@@ -1,4 +1,4 @@
-# First Line: <maxA>, <maxBA>, <maxC>
+# First Line: <availableA>, <availableB>, <availableC>
 # Process Lines: <pID>, <A>, <B>, <C>, <needA>, <needB>, <needC>
 0, 0, 0
 P0, 0, 1, 0, 0, 0, 0

@@ -22,6 +22,23 @@ public class SystemState {
 		_finished = new ArrayList<Process> ();
 		this.loadState(filepath);
 	}
+	
+	// Copy Constructor
+	public SystemState (SystemState state)
+	{
+		_unfinished = new ArrayList<Process> ();
+		_finished = new ArrayList<Process> ();
+		
+		for (Process proc : state.unfinished())
+			_unfinished.add(new Process(proc));
+		
+		for (Process proc : state.finished())
+			_finished.add(new Process(proc));
+		
+		_A = state.getA();
+		_B = state.getB();
+		_C = state.getC();
+	}
 
 	
 	/* ==============================================================================
@@ -38,13 +55,23 @@ public class SystemState {
 	/* ==============================================================================
 	 *  Methods
 	 * ============================================================================== */
-	public boolean give (int dA, int dB, int dC)
+	public boolean give (String processID, int dA, int dB, int dC)
 	{
-		// Resources available
-		_A -= dA;
-		_B -= dB;
-		_C -= dC;
-		return true;
+		for (Process proc : unfinished())
+		{
+			if (proc.getID().equals(processID))
+			{
+				proc.receive(dA, dB, dC);
+				
+				// Resources available
+				_A -= dA;
+				_B -= dB;
+				_C -= dC;
+				return true;
+			}
+		}
+		
+		return false;
 	}
 	
 	public void free (Process P)
@@ -208,6 +235,12 @@ public class SystemState {
 	 * ============================================================================== */
 	public void printFinished()
 	{
+		if (_finished.isEmpty())
+		{
+			System.out.print("[]");
+			return;
+		}
+			
 		System.out.print("[" + _finished.get(0).getID());
 		for (int i = 1; i < _finished.size(); i++)
 			System.out.print(", " + _finished.get(i).getID());

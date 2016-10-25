@@ -1,18 +1,25 @@
+import java.io.IOException;
+
 public class Safety {
 	public static void main(String[] args) {
-		try
-		{
-			SystemState _sysState = new SystemState(args[0]);
-			
-			if (isSafeState(_sysState)) {
-				System.out.print("Safety: safe. ~~> ");
-				_sysState.printFinished();
-			}
-			
-			else
-				System.out.print("Safety: NOT safe.");
+		SystemState _sysState;
+		
+		// Loading State
+		try {
+			_sysState = new SystemState(args[0]);
+		} catch (IOException ex) {
+			System.err.println("Error: State file not found!");
+			return;
 		}
-		catch (Exception ex) { ex.printStackTrace(); }
+		
+		// Verifying
+		if (isSafeState(_sysState)) {
+			System.out.print("Safety: safe. ~~> ");
+			_sysState.printFinished();
+		}
+		
+		else
+			System.out.print("Safety: NOT safe.");
 	}
 	
 	
