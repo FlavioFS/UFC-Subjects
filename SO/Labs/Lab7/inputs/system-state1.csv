@@ -1,8 +1,38 @@
-# First Line: <availableA>, <availableB>, <availableC>
-# Process Lines: <pID>, <A>, <B>, <C>, <needA>, <needB>, <needC>
-0, 0, 0
-P0, 0, 1, 0, 0, 0, 0
-P1, 2, 0, 0, 2, 0, 2
-P2, 3, 0, 3, 0, 0, 0
-P3, 2, 1, 1, 1, 0, 0
-P4, 0, 0, 2, 0, 0, 3
+### How to use ###
+
+# First Line: available NOW
+# <availA>, <availB>, <availC>
+
+# Process List
+# <pID>
+# alloc, <A>, <B>, <C>
+# need, <needA>, <needB>, <needC>
+# max, <maxA>, <maxB>, <maxC>
+
+# List example
+3, 5, 2
+
+P0
+alloc, 0, 1, 0
+need, 0, 0, 0
+max, 10, 10, 10
+
+P1
+alloc, 2, 0, 0
+need, 2, 0, 2
+max, 10, 10, 10
+
+P2
+alloc, 3, 0, 3
+need, 0, 0, 0
+max, 10, 10, 10
+
+P3
+alloc, 2, 1, 1
+need, 1, 0, 0
+max, 10, 10, 10
+
+P4
+alloc, 0, 0, 2
+need, 0, 0, 3
+max, 10, 10, 10

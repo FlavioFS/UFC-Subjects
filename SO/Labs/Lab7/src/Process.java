@@ -2,50 +2,68 @@ import java.util.Locale;
 
 public class Process
 {	
+	final static int RESOURCE_TYPES = 3;
+	
 	/* ==============================================================================
 	 *  Attributes
 	 * ============================================================================== */
-	private String _id;			// Process name
-	private int _A, _B, _C;		// Resources in use
-	private int _nA, _nB, _nC;	// Resources needed
-	private int _rA, _rB, _rC;	// Resources requested
+	private String _id;		// Process name
+	private int[] _alloc;	// Resources in use
+	private int[] _need;	// Resources needed
+	private int[] _max;	// Resources needed
+	private int[] _req;	// Resources requested
 	
 	/* ==============================================================================
 	 *  Constructors
 	 * ============================================================================== */
-	public Process (String id) { _id = id; }
+	public Process (String id) {
+		_id = id;
+		_alloc = new int [RESOURCE_TYPES];
+		_need  = new int [RESOURCE_TYPES];
+		_max   = new int [RESOURCE_TYPES];
+		_req   = new int [RESOURCE_TYPES];
+	}
 	
 	// Copy Constructor
 	public Process (Process proc)
 	{
-		_id = proc.getID();
-		setAciveResources(proc.getA(), proc.getB(), proc.getC());
-		setNeededResources(proc.getNeedA(), proc.getNeedB(), proc.getNeedC());
-		setRequestedResources(proc.getRequestA(), proc.getRequestB(), proc.getRequestC());
+		this(proc.getID());
+		
+		setAlloc(proc.getAlloc(0), proc.getAlloc(1), proc.getAlloc(2));
+		setNeed	( proc.getNeed(0),  proc.getNeed(1),  proc.getNeed(2));
+		setMax	(  proc.getMax(0),   proc.getMax(1),   proc.getMax(2));
+		setReq	(  proc.getReq(0),   proc.getReq(1),   proc.getReq(2));
 	}
 	
 	/* ==============================================================================
 	 *  Setters
 	 * ============================================================================== */
-	public void setAciveResources (int A, int B, int C){
+	public void setAlloc (int A, int B, int C){
 		// Active resources
-		_A  = A;
-		_B  = B;
-		_C  = C;
+		_alloc[0]  = A;
+		_alloc[1]  = B;
+		_alloc[2]  = C;
 	}
 	
-	public void setNeededResources (int nA, int nB, int nC) {
+	public void setNeed (int nA, int nB, int nC) {
+		// Current needed resources
+		_need[0] = nA;
+		_need[1] = nB;
+		_need[2] = nC;
+	}
+	
+	public void setMax (int mA, int mB, int mC) {
 		// Max needed resources
-		_nA = nA;
-		_nB = nB;
-		_nC = nC;
+		_max[0] = mA;
+		_max[1] = mB;
+		_max[2] = mC;
 	}
 	
-	public void setRequestedResources (int rA, int rB, int rC) {
+	public void setReq (int rA, int rB, int rC) {
 		// Requested resources
-		_rA = rA;
-		_rB = rB;
-		_rC = rC;
+		_req[0] = rA;
+		_req[1] = rB;
+		_req[2] = rC;
 	}
 	
 	
@@ -54,17 +72,10 @@ public class Process
 	 * ============================================================================== */
 	public String getID() { return _id; }
 	
-	public int getA()     { return _A;  }
-	public int getB()     { return _B;  }
-	public int getC()     { return _C;  }
-	
-	public int getNeedA() { return _nA; }
-	public int getNeedB() { return _nB; }
-	public int getNeedC() { return _nC; }
-	
-	public int getRequestA() { return _rA; }
-	public int getRequestB() { return _rB; }
-	public int getRequestC() { return _rC; }
+	public int getAlloc(int i)	{ return _alloc[i];  }
+	public int getNeed(int i)	{ return _need[i]; }
+	public int getMax(int i)	{ return _max[i]; }
+	public int getReq(int i)	{ return _req[i]; }
 
 	
 	/* ==============================================================================
@@ -72,16 +83,13 @@ public class Process
 	 * ============================================================================== */
 	public void receive (int dA, int dB, int dC)
 	{
-		_A += dA;
-		_B += dB;
-		_C += dC;
+		setAlloc(getAlloc(0)+dA, getAlloc(1)+dB, getAlloc(2)+dC);
+		setNeed(getNeed(0)-dA, getNeed(1)-dB, getNeed(2)-dC);
 	}
 	
 	public void free ()
 	{
-		_A = 0;
-		_B = 0;
-		_C = 0;
+		setAlloc(0, 0, 0);
 	}
 	
 	/* ==============================================================================
@@ -92,23 +100,23 @@ public class Process
 		return "Process\n"                   +
 			   "   └─ ID      Arrival  Priority\n      " +
 			   String.format(Locale.US, "%-6s  ", getID()) +
-			   String.format(Locale.US, "%-2d  ", getA()) +
-			   String.format(Locale.US, "%-2d  ", getB()) +
-			   String.format(Locale.US, "%-2d  ", getC()) +
-			   String.format(Locale.US, "%-2d  ", getNeedA()) +
-			   String.format(Locale.US, "%-2d  ", getNeedB()) +
-			   String.format(Locale.US, "%-2d  ", getNeedC());
+			   String.format(Locale.US, "%-2d  ", getAlloc(0)) +
+			   String.format(Locale.US, "%-2d  ", getAlloc(1)) +
+			   String.format(Locale.US, "%-2d  ", getAlloc(2)) +
+			   String.format(Locale.US, "%-2d  ", getNeed(0)) +
+			   String.format(Locale.US, "%-2d  ", getNeed(1)) +
+			   String.format(Locale.US, "%-2d  ", getNeed(2));
 	}
 	
 	@Override
 	public String toString ()
 	{
 		return "Process(ID: " + getID() +
-		       ", A: "  + String.valueOf(getA()) +
-		       ", B: "  + String.valueOf(getB()) +
-		       ", C: "  + String.valueOf(getC()) +
-		       ", nA: " + String.valueOf(getNeedA()) +
-		       ", nB: " + String.valueOf(getNeedB()) + 
-		       ", nC: " + String.valueOf(getNeedC()) + ")";
+		       ", A: "  + String.valueOf(getAlloc(0)) +
+		       ", B: "  + String.valueOf(getAlloc(1)) +
+		       ", C: "  + String.valueOf(getAlloc(2)) +
+		       ", nA: " + String.valueOf(getNeed(0)) +
+		       ", nB: " + String.valueOf(getNeed(1)) + 
+		       ", nC: " + String.valueOf(getNeed(2)) + ")";
 	}
 }

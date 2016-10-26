@@ -37,15 +37,15 @@ public class Avoid {
 			break;
 			
 		case REQUEST_WAIT:
-			System.out.println("WAIT: resources unavailable.");
+			System.out.println("    WAIT: resources unavailable.");
 			break;
 			
 		case REQUEST_OK:
-			System.out.println("OK: request approved.");
+			System.out.println("      OK: request approved.");
 			break;
 			
 		case REQUEST_DENIED:
-			System.out.println("DENIED: dangerous state!");
+			System.out.println("  DENIED: dangerous state!");
 			break;
 		}
 	}
@@ -55,11 +55,14 @@ public class Avoid {
 	{
 		SystemState state = new SystemState(stateArg);	// Non-destructive copy
 		
-		if		(state.isExceededRequest(proc))		return REQUEST_EXCEEDED;
-		else if	(state.isUnfeasibleRequest(proc))	return REQUEST_WAIT;
+		System.out.print("" + proc.getID() + " << (" + proc.getReq(0) + ", " + proc.getReq(1) + ", " + proc.getReq(2) + ") | ");
 		
-		state.give(proc.getID(), proc.getRequestA(), proc.getRequestB(), proc.getRequestC());
-		if (Safety.isSafeState(state)) return REQUEST_OK;
+		if	(state.isExceededRequest(proc))		return REQUEST_EXCEEDED;
+		if	(state.isUnfeasibleRequest(proc))	return REQUEST_WAIT;
+		
+		state.give(proc.getID(), proc.getReq(0), proc.getReq(1), proc.getReq(2));
+		
+		if (Safety.isSafeState(state)) 			return REQUEST_OK;
 		
 		return REQUEST_DENIED;
 	}
