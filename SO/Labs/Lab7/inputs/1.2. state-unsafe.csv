@@ -1,0 +1,26 @@
+### How to use ###
+
+# First Line: available NOW
+# <availA>, <availB>, <availC>
+
+# Process List
+# <pID>
+# alloc, <A>, <B>, <C>
+# need, <needA>, <needB>, <needC>
+# max, <maxA>, <maxB>, <maxC>
+
+1, 0, 1
+P0
+alloc, 1, 1, 0
+need, 0, 1, 0
+max, 2, 2, 2
+
+P1
+alloc, 0, 1, 1
+need, 0, 1, 0
+max, 2, 2, 2
+
+P2
+alloc, 1, 1, 1
+need, 0, 1, 0
+max, 2, 2, 2

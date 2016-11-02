@@ -20,12 +20,12 @@ public class Avoid {
 			try {
 				_proc = _sysState.loadRequest(args[1]);
 			} catch (IOException ex) {
-				System.err.println("Error: Request file not found!");
+				System.err.print("Error: Request file not found!");
 				return;
 			}
 			
 		} catch (IOException ex) {
-			System.err.println("Error: State file not found!");
+			System.err.print("Error: State file not found!");
 			return;
 		}
 		
@@ -33,19 +33,19 @@ public class Avoid {
 		switch (isAvoidable(_sysState, _proc))
 		{
 		case REQUEST_EXCEEDED:
-			System.out.println("EXCEEDED: request larger than needs.");
+			System.out.print("EXCEEDED: request larger than needs.");
 			break;
 			
 		case REQUEST_WAIT:
-			System.out.println("    WAIT: resources unavailable.");
+			System.out.print("    WAIT: resources unavailable.");
 			break;
 			
 		case REQUEST_OK:
-			System.out.println("      OK: request approved.");
+			System.out.print("      OK: request approved.");
 			break;
 			
 		case REQUEST_DENIED:
-			System.out.println("  DENIED: dangerous state!");
+			System.out.print("  DENIED: dangerous state!");
 			break;
 		}
 	}

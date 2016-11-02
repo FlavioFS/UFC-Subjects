@@ -257,6 +257,20 @@ public class SystemState {
 		System.out.print("[" + _finished.get(0).getID());
 		for (int i = 1; i < _finished.size(); i++)
 			System.out.print(", " + _finished.get(i).getID());
+		System.out.print("]");
+	}
+	
+	public void printUnfinished()
+	{
+		if (_unfinished.isEmpty())
+		{
+			System.out.print("[]");
+			return;
+		}
+			
+		System.out.print("[" + _unfinished.get(0).getID());
+		for (int i = 1; i < _unfinished.size(); i++)
+			System.out.print(", " + _unfinished.get(i).getID());
 		System.out.println("]");
 	}
 }

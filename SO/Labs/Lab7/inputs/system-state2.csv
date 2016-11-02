@@ -1,8 +1,0 @@
-# First Line: <availableA>, <availableB>, <availableC>
-# Process Lines: <pID>, <A>, <B>, <C>, <needA>, <needB>, <needC> 
-2, 3, 0
-P0, 0, 1, 0, 7, 4, 3
-P1, 3, 0, 2, 0, 2, 0
-P2, 3, 0, 2, 6, 0, 0
-P3, 2, 1, 1, 0, 1, 1
-P4, 0, 0, 2, 4, 3, 1
