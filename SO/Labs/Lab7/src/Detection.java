@@ -14,35 +14,12 @@ public class Detection {
 		}
 		
 		// Verifying
-		if (isDeadlocked(_sysState)) {
+		if (Safety.isSafeState(_sysState))
+			System.out.print("Deadlock? No.");
+		
+		else {
 			System.out.print("Deadlock? Yes. ~~> ");
 			_sysState.printUnfinished();
 		}
-		
-		else
-			System.out.print("Deadlock? No.");
-	}
-	
-	
-	public static boolean isDeadlocked (SystemState state)
-	{
-		boolean lastTurn = true;
-		
-		// Run this until no unfinished process can be finished
-		do {
-			lastTurn = true;
-			
-			// Finishes every possible process in list
-			for (int i = 0; i < state.unfinished().size(); i++) {
-				if (state.isLastTurn(i)) {
-					state.finish(i);
-					lastTurn = false;
-					--i;
-				}
-			}
-		}
-		while (!lastTurn); // In last turn nothing happens
-		
-		return state.unfinished().isEmpty();
 	}
 }

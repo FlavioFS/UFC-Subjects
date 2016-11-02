@@ -111,9 +111,9 @@ public class SystemState {
 	public boolean isExceededRequest (Process proc)
 	{
 		// If the Process exceeds its maximum requests
-		if ( proc.getReq(0) > proc.getNeed(0) ||
-			 proc.getReq(1) > proc.getNeed(1) ||
-			 proc.getReq(2) > proc.getNeed(2))
+		if ( proc.getReq(0) + proc.getAlloc(0) > proc.getMax(0) ||
+			 proc.getReq(1) + proc.getAlloc(1) > proc.getMax(1) ||
+			 proc.getReq(2) + proc.getAlloc(2) > proc.getMax(2))
 			return true;
 		
 		return false;
@@ -122,9 +122,9 @@ public class SystemState {
 	public boolean isUnfeasibleRequest (Process proc)
 	{
 		// If the system cannot attend this Process now
-		if ( proc.getReq(0) > proc.getNeed(0) ||
-			 proc.getReq(1) > proc.getNeed(1) ||
-			 proc.getReq(2) > proc.getNeed(2))
+		if ( proc.getReq(0) > getAvail(0) ||
+			 proc.getReq(1) > getAvail(1) ||
+			 proc.getReq(2) > getAvail(2))
 			return true;
 		
 		return false;
@@ -271,6 +271,6 @@ public class SystemState {
 		System.out.print("[" + _unfinished.get(0).getID());
 		for (int i = 1; i < _unfinished.size(); i++)
 			System.out.print(", " + _unfinished.get(i).getID());
-		System.out.println("]");
+		System.out.print("]");
 	}
 }

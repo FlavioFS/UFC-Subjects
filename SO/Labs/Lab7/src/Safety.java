@@ -40,7 +40,7 @@ public class Safety {
 				}
 			}
 		}
-		while (!lastTurn); // In last turn nothing happens
+		while (!lastTurn); // In last turn no changes occur
 		
 		return state.unfinished().isEmpty();
 	}
