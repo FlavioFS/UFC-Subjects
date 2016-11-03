@@ -1,3 +1,5 @@
+import org.omg.CORBA._IDLTypeStub;
+
 public class ChopsticksView {
 	/* =====================================================================================
 	 *   CONSTANTS
@@ -10,7 +12,8 @@ public class ChopsticksView {
 	
 	private static final String[] SYMBOLS = {"...", " ! ", " \\/", " \\ ", "  /"};
 	
-	private static final boolean isEclipse = "true".equalsIgnoreCase(System.getProperty("runInEclipse"));
+	private static boolean _isJumper;
+	
 	private static final String MEGA_JUMP = "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 			+ "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
 			+ "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n"
@@ -39,8 +42,9 @@ public class ChopsticksView {
 	/* =====================================================================================
 	 *   CONSTRUCTOR
 	 * ===================================================================================== */
-	public ChopsticksView (final int size, String[] names) {
+	public ChopsticksView (final int size, String[] names, final boolean jumper) {
 		_hashiCount = size;
+		_isJumper = jumper;
 		_names = new String [_hashiCount];
 		_values = new int [_hashiCount];
 				
@@ -51,7 +55,7 @@ public class ChopsticksView {
 		
 		calcHeader();
 
-		if(!isEclipse) {
+		if(!_isJumper) {
 			System.out.println(_headerStr);
 		}
 	}
@@ -67,7 +71,7 @@ public class ChopsticksView {
 	public void display () {
 		updateValues();
 		
-		if (isEclipse) {
+		if (_isJumper) {
 			System.out.print(MEGA_JUMP + _headerStr + "\n" + _valuesStr);
 		}
 		else {
@@ -76,30 +80,30 @@ public class ChopsticksView {
 	}
 	
 	private void updateValues () {
-		_valuesStr = String.format("│ %3s ", SYMBOLS[_values[0]]);
-		for (int i=1; i<_hashiCount; i++) {
-			_valuesStr += String.format("│ %3s ", SYMBOLS[_values[i]]);
-		}
-		_valuesStr += "│";
+		 _valuesStr = String.format("| %3s ", SYMBOLS[_values[0]]);
+		 for (int i=1; i<_hashiCount; i++) {
+		 	_valuesStr += String.format("| %3s ", SYMBOLS[_values[i]]);
+		 }
+		 _valuesStr += "|";
 	}
-
-	private void calcHeader () {
-		_headerStr = String.format(
-				"Thinking:     %3s\n" +
-				"Hungry:       %3s\n" +
-				"Eating:       %3s\n" +
-				"Left Hashi:   %3s\n" +
-				"Right Hashi:  %3s\n\n" +
-				"│ %3s ", SYMBOLS[THINKING], SYMBOLS[HUNGRY], SYMBOLS[EATING], SYMBOLS[LEFT], SYMBOLS[RIGHT], _names[0]);
-		
-		for (int i=1; i<_hashiCount; i++) {
-			_headerStr += String.format("│ %3s ", _names[i]);
-		}
-
-		_headerStr += String.format("│\n├─────", _names[0]);
-		for (int i=1; i<_hashiCount-1; i++) {
-			_headerStr += String.format("┼─────", _names[i]);
-		}
-		_headerStr += String.format("┼─────┤", _names[_hashiCount-1]);
+		 
+	 private void calcHeader () {
+		 _headerStr = String.format(
+	 		"Thinking:     %3s\n" +
+	 		"Hungry:       %3s\n" +
+	 		"Eating:       %3s\n" +
+	 		"Left Hashi:   %3s\n" +
+	 		"Right Hashi:  %3s\n\n" +
+	 		"| %3s ", SYMBOLS[THINKING], SYMBOLS[HUNGRY], SYMBOLS[EATING], SYMBOLS[LEFT], SYMBOLS[RIGHT], _names[0]);
+	 
+		 for (int i=1; i<_hashiCount; i++) {
+		 	_headerStr += String.format("| %3s ", _names[i]);
+		 }
+		 
+		 _headerStr += String.format("|\n+-----", _names[0]);
+		 for (int i=1; i<_hashiCount; i++) {
+		 	_headerStr += String.format("+-----", _names[i]);
+		 }
+		 _headerStr += String.format("+", _names[_hashiCount-1]);
 	}
 }

@@ -1,1 +1,1 @@
-java -classpath class PhilosophersSemaphoreExample
+java -classpath class PhilosophersSemaphoreExample noJump

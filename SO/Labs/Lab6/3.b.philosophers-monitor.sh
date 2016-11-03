@@ -1,1 +1,1 @@
-java -classpath class PhilosophersMonitorExample
+java -classpath class PhilosophersMonitorExample noJump

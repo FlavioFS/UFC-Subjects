@@ -1,1 +1,1 @@
-java -classpath class ReaderWriterSemaphoreExample
+java -classpath class ReaderWriterSemaphoreExample noJump

@@ -20,17 +20,6 @@ RUN
 3. Run it
 	$ ./test-everything.sh
 
-
-
-/* ===================================================================
- *   Eclipse Instructions for the Philosophers Example
- * =================================================================== */
- 1. Copy this: -DrunInEclipse=true
-
- 2. In Eclipse, open "Run Configurations".
-
- 3. Go to the Arguments tab, in the "VM arguments" section and paste it
- 	(it is the "VM Arguments", not the "Program Arguments").
-
- 4. Run some example (PhilosophersMonitorExample.java,
- 	PhilosophersSemaphoreExample.java)
+~~> Providing arguments to the program will de-activate the "jumper"
+	feature (which is a good thing!), but it is not possible in Eclipse
+	due to a bug!

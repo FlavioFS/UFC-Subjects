@@ -1,1 +1,1 @@
-java -classpath class ReaderWriterMonitorExample
+java -classpath class ReaderWriterMonitorExample noJump

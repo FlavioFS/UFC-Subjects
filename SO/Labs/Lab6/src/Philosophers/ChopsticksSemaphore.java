@@ -64,6 +64,9 @@ public class ChopsticksSemaphore implements IChopsticks {
 	}
 	
 	public void take (String id, final int position) throws InterruptedException {
+		_chView.updateValue(position, ChopsticksView.HUNGRY);
+		_chView.display();
+		
 		int
 			hashi1 = position,
 			hashi2 = position + 1; 

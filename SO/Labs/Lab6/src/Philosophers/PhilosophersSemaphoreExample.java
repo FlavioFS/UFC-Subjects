@@ -4,8 +4,9 @@ public class PhilosophersSemaphoreExample {
 	public static void main(String[] args) {
 		final int PHILOSOPHERS_COUNT = 5;
 		final String[] names = {"P0", "P1", "P2", "P3", "P4"};
+		final boolean isJumper = (args.length == 0);
 		
-		ChopsticksView _chView = new ChopsticksView(PHILOSOPHERS_COUNT, names);
+		ChopsticksView _chView = new ChopsticksView(PHILOSOPHERS_COUNT, names, isJumper);
 		IChopsticks _chopsticks = new ChopsticksSemaphore(PHILOSOPHERS_COUNT, _chView);
 		
 		_chView.display();
