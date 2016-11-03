@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.concurrent.Semaphore;
 
 public class ChopsticksSemaphore implements IChopsticks {
@@ -9,6 +10,7 @@ public class ChopsticksSemaphore implements IChopsticks {
 	private boolean[] _hashi;	// State of hashis (available or not)
 	Semaphore[] _mutexHashi;	// One Semaphore for each hashi
 	ChopsticksView _chView;
+	Random _randomPick = new Random();
 	
 	
 	/* =====================================================================================
@@ -75,14 +77,26 @@ public class ChopsticksSemaphore implements IChopsticks {
 		if (hashi2 >= CHOPSTICKS_COUNT) hashi2 -= CHOPSTICKS_COUNT;
 		
 		// Attempts to take hashis
-		_mutexHashi[hashi1].acquire();
-		_chView.updateValue(hashi1, ChopsticksView.LEFT);
-		_chView.display();
-		
-		_mutexHashi[hashi2].acquire();
-		_chView.updateValue(hashi1, ChopsticksView.EATING);
-		_chView.display();
-		
+		final int firstPick = _randomPick.nextInt(2);
+		if (firstPick == 0) {
+			_mutexHashi[hashi1].acquire();
+			_chView.updateValue(hashi1, ChopsticksView.LEFT);
+			_chView.display();
+			
+			_mutexHashi[hashi2].acquire();
+			_chView.updateValue(hashi1, ChopsticksView.EATING);
+			_chView.display();
+		}
+		else {
+			_mutexHashi[hashi2].acquire();
+			_chView.updateValue(hashi1, ChopsticksView.RIGHT);
+			_chView.display();
+			
+			_mutexHashi[hashi1].acquire();
+			_chView.updateValue(hashi1, ChopsticksView.EATING);
+			_chView.display();
+		}
+				
 		// Eating
 		setHashi(false, hashi1);
 		setHashi(false, hashi2);

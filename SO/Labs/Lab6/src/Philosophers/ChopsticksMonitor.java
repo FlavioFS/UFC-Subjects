@@ -64,7 +64,6 @@ public class ChopsticksMonitor implements IChopsticks {
 				
 				_hashiReturned[hashi1].signal();
 				_hashiReturned[hashi2].signal();
-//				System.out.format("%s <<   [%d, %d]\n", id, hashi1, hashi2);
 			}
 		} finally {
 			lock.unlock();
@@ -95,9 +94,6 @@ public class ChopsticksMonitor implements IChopsticks {
 			
 			// Takes hashis and eats
 			setHashi(false, hashi1);
-			_chView.updateValue(hashi1, ChopsticksView.LEFT);
-			_chView.display();
-			
 			setHashi(false, hashi2);
 			_chView.updateValue(hashi1, ChopsticksView.EATING);
 			_chView.display();
