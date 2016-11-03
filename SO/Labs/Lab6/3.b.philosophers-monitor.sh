@@ -1,1 +1,1 @@
-java -classpath class PhilosophersMonitorExample noJump
+java -classpath bin PhilosophersMonitorExample noJump

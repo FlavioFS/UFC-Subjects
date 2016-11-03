@@ -1,1 +1,1 @@
-java -classpath class ProducerConsumerExample noJump
+java -classpath bin ProducerConsumerExample noJump
