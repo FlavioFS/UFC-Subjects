@@ -3,7 +3,9 @@
 
 # Eclipse
 *.metadata/
+*.recommenders/
 SO/Labs/.metadata/
+SO/Labs/.recommenders/
 *.log
 *.snap
 *.index
