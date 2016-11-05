@@ -11,3 +11,6 @@ SO/Labs/.recommenders/
 *.index
 *.dat
 *.history
+
+#PyCharm
+.idea
