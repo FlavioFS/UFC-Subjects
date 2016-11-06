@@ -12,5 +12,6 @@ SO/Labs/.recommenders/
 *.dat
 *.history
 
-#PyCharm
-.idea
+#Python
+*.idea
+*.pyc
