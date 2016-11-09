@@ -105,7 +105,7 @@ class MultiLinearRegression(object):
     EUCLID2 = "euclid2"
     MANHATTAN = "manhattan"
     ANGULAR = "angular"
-    PASSES = 2000
+    PASSES = 100
     BASE_ALPHA = 0.1
     BASE_WEIGHT = 0.01
 
@@ -126,6 +126,7 @@ class MultiLinearRegression(object):
         self.rows = len(self.trainingSet)
         self.columns = len(self.trainingSet[0])
         self.setAnswerColumn(self.columns - 1)
+        self.updateCrossValidationSet()
 
     def setAnswerColumn(self, answerColumn):
         """Set the answer column"""
@@ -140,6 +141,12 @@ class MultiLinearRegression(object):
         self.features[0][0] = 1 # Prevents zscore from dividing by zero
         self.features = stats.zscore(self.features)
         self.features[:, 0] = np.ones([self.rows])
+
+    def updateCrossValidationSet (self):
+        splitPoint = 0.5*self.rows
+        self.valFeatures = self.features[splitPoint:, :]
+        self.valAnswers = self.trainingSet[splitPoint:, self.answerColumn]
+        self.features = self.features[:splitPoint, :]
 
     def setDistanceFunction(self, distanceFunctionCode):
         """Sets the metric used"""
@@ -170,42 +177,43 @@ class MultiLinearRegression(object):
 
         errorHistory = np.empty([self.PASSES])
         alphaAging = 1
+        lastValError = np.mean((self.predict(self.weights, self.valFeatures) - self.valAnswers) ** 2)
         for passIterator in xrange(self.PASSES):
             # Shuffles training set
             self.setTrainingSet(np.random.permutation(self.trainingSet))
 
             # Fits
-            meanSquaredError = 0
-            for setIterator in xrange(self.rows):
-                error = self.getAnswer(setIterator) - self.predict(self.features[setIterator])
-                self.weights = np.add(self.weights, (self.BASE_ALPHA * self.rows/(self.rows+alphaAging)) * error * self.features[setIterator])
-                # (self.BASE_ALPHA * self.rows/(self.rows+alphaAging))
-                meanSquaredError += error**2
-                alphaAging += 1
+            trainRows = len(self.features)
 
-            meanSquaredError /= self.rows
-            errorHistory[passIterator] = meanSquaredError
+            for setIterator in xrange(trainRows):
+                error = self.getAnswer(setIterator) - self.predict(self.weights, self.features[setIterator])
+                newWeights = np.add(self.weights,
+                        (self.BASE_ALPHA * trainRows/(trainRows+alphaAging)) * error * self.features[setIterator])
+
+                # Validation
+                newValError = np.mean((self.predict(newWeights, self.valFeatures) - self.valAnswers) ** 2)
+                if (newValError <= lastValError):
+                    self.weights = newWeights
+                    lastValError = newValError
+                    alphaAging += 1
+
+            errorHistory[passIterator] = lastValError
+            # errorHistory[passIterator] = np.mean((self.predict(self.weights, self.valFeatures) - self.valAnswers) ** 2)
 
         self.setTrainingSet(oldTrainingSet)
         return errorHistory
 
-    def predict(self, pointSample):
+    def predict(self, weights, pointSamples):
         """Predicts the value of a given feature array"""
-        return self.weights.dot(pointSample)
+        return np.dot(pointSamples, weights)
 
-    def predictArray(self, pointSamples):
-        """Predicts the values of all feature arrays in a given feature matrix"""
-        rv = np.empty([len(pointSamples), 1])
-
-        # Prepends column of 1's
-        treatedSamples = np.empty([len(pointSamples), self.columns])
-        treatedSamples[:, 1:] = pointSamples
-        treatedSamples[:, 0] = np.ones([len(pointSamples)])
-
-        for i in xrange(len(treatedSamples)):
-            rv.put([i], self.predict(treatedSamples[i]))
-
-        return rv
+    def naivePredict(self, weights, pointSamples):
+        if (len(pointSamples[0]) < len(weights)):
+            newSamples = np.empty([len(pointSamples), len(weights)])
+            newSamples[:, 1:] = pointSamples
+            newSamples[:, 0] = np.ones([len(pointSamples)])
+            return self.predict(weights, newSamples)
+        return self.predict(weights, pointSamples)
 
     # =========================================================================
     #   Analysis
@@ -261,7 +269,7 @@ regr.setDistanceFunction(regr.EUCLID2)
 evolutionHistory = regr.fit()
 print "Squared Mean Error Evolution History:"
 print evolutionHistory
-predictions = regr.predictArray(ttfeatures)
+predictions = regr.naivePredict(regr.weights, ttfeatures)
 # print "Absolute Error"
 # regr.score(predictions, ttlabels)
 # print ""
@@ -279,7 +287,7 @@ regr.setDistanceFunction(regr.MANHATTAN)
 print "Squared Mean Error Evolution History:"
 evolutionHistory = regr.fit()
 print evolutionHistory
-predictions = regr.predictArray(ttfeatures)
+predictions = regr.naivePredict(regr.weights, ttfeatures)
 # print "Absolute Error"
 # regr.score(predictions, ttlabels)
 print ""
@@ -297,7 +305,7 @@ regr.setDistanceFunction(regr.ANGULAR)
 print "Squared Mean Error Evolution History:"
 evolutionHistory = regr.fit()
 print evolutionHistory
-predictions = regr.predictArray(ttfeatures)
+predictions = regr.naivePredict(regr.weights, ttfeatures)
 # print "Absolute Error"
 # regr.score(predictions, ttlabels)
 # print ""

@@ -204,6 +204,8 @@ class Knn(object):
 #                                   Usage
 # ============================================================================
 
+from sklearn.neighbors import KNeighborsClassifier
+
 # Loading and Shuffling dataset
 data = np.loadtxt("haberman.data", delimiter=",")
 ndata = np.random.permutation(data)
@@ -211,10 +213,6 @@ ndata = np.random.permutation(data)
 # Separating features
 size = len(ndata)
 nt = int(math.floor(size * 0.7))
-
-# Training already passed
-# trfeatures = ndata[0:nt, 0:3]     # Features
-# trlabels = ndata[0:nt, 3]         # Answers
 
 # Prediction
 ttfeatures = ndata[nt:size, 0:3]    # Features
@@ -224,18 +222,52 @@ ttlabels = ndata[nt:size, 3]        # Answers
 myKnn = Knn(ndata[0:nt, :])
 
 # Euclidean distance
+print "============================================================================"
+print "  Euclidian Squared"
+print "============================================================================"
 myKnn.setDistanceFunction(myKnn.EUCLID2)
-predictions = myKnn.predictArray(ttfeatures, k=3)
+predictions = myKnn.predictArray(ttfeatures, k=10)
 myKnn.score(predictions, ttlabels)
 print ""
 
 # Manhattan distance
+print "============================================================================"
+print "  Manhattan"
+print "============================================================================"
 myKnn.setDistanceFunction(myKnn.MANHATTAN)
-predictions = myKnn.predictArray(ttfeatures, k=3)
+predictions = myKnn.predictArray(ttfeatures, k=10)
 myKnn.score(predictions, ttlabels)
 print ""
 
 # Angular distance
+print "============================================================================"
+print "  Angular"
+print "============================================================================"
 myKnn.setDistanceFunction(myKnn.ANGULAR)
-predictions = myKnn.predictArray(ttfeatures, k=3)
+predictions = myKnn.predictArray(ttfeatures, k=10)
 myKnn.score(predictions, ttlabels)
+print ""
+
+# Training already passed
+print "============================================================================"
+print "  SKLearn"
+print "============================================================================"
+print "------- Default -------"
+trfeatures = ndata[0:nt, 0:3]     # Features
+trlabels = ndata[0:nt, 3]         # Answers
+knn3 = KNeighborsClassifier(n_neighbors=10)
+knn3.fit(trfeatures, trlabels)
+print knn3.score(ttfeatures,ttlabels)
+print ""
+
+print "------- Distance -------"
+wknn3 = KNeighborsClassifier(n_neighbors=10,weights='distance')
+wknn3.fit(trfeatures, trlabels)
+print wknn3.score(ttfeatures,ttlabels)
+print ""
+
+print "------- Uniform -------"
+wknn1 = KNeighborsClassifier(n_neighbors=10,weights='uniform')
+wknn1.fit(trfeatures, trlabels)
+print wknn1.score(ttfeatures,ttlabels)
+print ""
