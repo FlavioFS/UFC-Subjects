@@ -96,6 +96,7 @@ def distanceAngular(point1, point2):
 
 import numpy as np
 from scipy import stats
+from sklearn import linear_model
 
 class MultiLinearRegression(object):
     # =========================================================================
@@ -104,9 +105,9 @@ class MultiLinearRegression(object):
     EUCLID2 = "euclid2"
     MANHATTAN = "manhattan"
     ANGULAR = "angular"
-    PASSES = 100
-    BASE_ALPHA = 0.01
-    BASE_WEIGHT = 0.1
+    PASSES = 2000
+    BASE_ALPHA = 0.1
+    BASE_WEIGHT = 0.01
 
     # =========================================================================
     #   Constructor
@@ -136,6 +137,7 @@ class MultiLinearRegression(object):
         # Prepends column of 1's
         self.features = np.empty([self.rows, self.columns])
         self.features[:, 1:] = np.delete(self.trainingSet.copy(), answerColumn, axis=1)
+        self.features[0][0] = 1 # Prevents zscore from dividing by zero
         self.features = stats.zscore(self.features)
         self.features[:, 0] = np.ones([self.rows])
 
@@ -177,6 +179,7 @@ class MultiLinearRegression(object):
             for setIterator in xrange(self.rows):
                 error = self.getAnswer(setIterator) - self.predict(self.features[setIterator])
                 self.weights = np.add(self.weights, (self.BASE_ALPHA * self.rows/(self.rows+alphaAging)) * error * self.features[setIterator])
+                # (self.BASE_ALPHA * self.rows/(self.rows+alphaAging))
                 meanSquaredError += error**2
                 alphaAging += 1
 
@@ -214,9 +217,7 @@ class MultiLinearRegression(object):
 
         meanAbsoluteError = sum(abs(real - pred) for real, pred in zip(predictedValues, answers))[0]
         meanAbsoluteError /= len(answers)
-        total = sum(ans for ans in answers)
         print "Error:    ", meanAbsoluteError
-        print "Error(%): ", 100*meanAbsoluteError/total
         return meanAbsoluteError
 
 
@@ -232,9 +233,9 @@ data = np.loadtxt("hour.csv", delimiter=",")
 # data = data[:, 1:]
 
 # Using only:
-# weekday, workingday, weathersit, temp
-trimedData = data[:, 7:12]
-trimedData[:, 4] = data[:, 16]
+# holyday, weekday, workingday, weathersit, temp, atemp, hum, windspeed
+trimedData = data[:, 6:15]
+trimedData[:, 8] = data[:, 16]
 data = trimedData
 ndata = np.random.permutation(data)
 
@@ -245,47 +246,77 @@ nt = int(math.floor(ROW_COUNT * 0.01))
 nf = int(math.floor(ROW_COUNT * 0.02))
 
 # Prediction
-ttfeatures = ndata[nt:nf, 0:COLUMN_COUNT-1]  # Features
-ttlabels = ndata[nt:nf, COLUMN_COUNT-1]      # Answers
+ttfeatures = stats.zscore(ndata[nt:nf, 0:COLUMN_COUNT-1])  # Features
+ttlabels = ndata[nt:nf, COLUMN_COUNT-1]                    # Answers
 
 
 # Creating learner
-myKnn = MultiLinearRegression(ndata[nt:nf, :])
+regr = MultiLinearRegression(ndata[:nt, :])
 
 # Euclidean distance
 print "============================================================================"
 print "  Euclidian Squared"
 print "============================================================================"
-myKnn.setDistanceFunction(myKnn.EUCLID2)
-evolutionHistory = myKnn.fit()
+regr.setDistanceFunction(regr.EUCLID2)
+evolutionHistory = regr.fit()
 print "Squared Mean Error Evolution History:"
 print evolutionHistory
-predictions = myKnn.predictArray(ttfeatures)
-print "Absolute Error"
-myKnn.score(predictions, ttlabels)
+predictions = regr.predictArray(ttfeatures)
+# print "Absolute Error"
+# regr.score(predictions, ttlabels)
+# print ""
+print('Coefficients: \n', regr.weights)
+# The mean squared error
+print("Mean squared error: %.2f"
+      % np.mean((predictions - ttlabels) ** 2))
 print ""
 
 # Manhattan distance
 print "============================================================================"
 print "  Manhattan"
 print "============================================================================"
-myKnn.setDistanceFunction(myKnn.MANHATTAN)
+regr.setDistanceFunction(regr.MANHATTAN)
 print "Squared Mean Error Evolution History:"
-evolutionHistory = myKnn.fit()
+evolutionHistory = regr.fit()
 print evolutionHistory
-predictions = myKnn.predictArray(ttfeatures)
-print "Absolute Error"
-myKnn.score(predictions, ttlabels)
+predictions = regr.predictArray(ttfeatures)
+# print "Absolute Error"
+# regr.score(predictions, ttlabels)
+print ""
+print('Coefficients: \n', regr.weights)
+# The mean squared error
+print("Mean squared error: %.2f"
+      % np.mean((predictions - ttlabels) ** 2))
 print ""
 
 # Angular distance
 print "============================================================================"
 print "  Angular"
 print "============================================================================"
-myKnn.setDistanceFunction(myKnn.ANGULAR)
+regr.setDistanceFunction(regr.ANGULAR)
 print "Squared Mean Error Evolution History:"
-evolutionHistory = myKnn.fit()
+evolutionHistory = regr.fit()
 print evolutionHistory
-predictions = myKnn.predictArray(ttfeatures)
-print "Absolute Error"
-myKnn.score(predictions, ttlabels)
+predictions = regr.predictArray(ttfeatures)
+# print "Absolute Error"
+# regr.score(predictions, ttlabels)
+# print ""
+print('Coefficients: \n', regr.weights)
+# The mean squared error
+print("Mean squared error: %.2f"
+      % np.mean((predictions - ttlabels) ** 2))
+print ""
+
+
+print "============================================================================"
+print "  Scikit Learn"
+print "============================================================================"
+regr = linear_model.LinearRegression()
+regr.fit(ndata[:nt, :COLUMN_COUNT-1], ndata[:nt, COLUMN_COUNT-1])
+predictions = regr.predict(ttfeatures)
+# The coefficients
+print('Coefficients: \n', [regr.coef_ , regr.intercept_])
+# The mean squared error
+print("Mean squared error: %.2f"
+      % np.mean((predictions - ttlabels) ** 2))
+print ""

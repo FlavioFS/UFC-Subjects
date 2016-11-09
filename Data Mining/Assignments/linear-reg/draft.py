@@ -4,10 +4,12 @@ from scipy import stats
 N = 5
 
 a = np.ones([N, N])
-b = np.array([1, 2, 3, 4, 5])
+b = np.array([[1, 2, 3, 4, 5], [1, 2, 3, 4, 5], [3, 2, 3, 1, 5], [1, 2, 3, 4, 5], [1, 2, 3, 4, 5]])
 # b = 2*np.ones([N])
-a[:, 0] = b
+# a[:, 0] = b
 
+a = np.add(a, b)
+print a, "\n", b
 # print a, "\n"
 
 # print stats.zscore(a, ddof=0), "\n"
