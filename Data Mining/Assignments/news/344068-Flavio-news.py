@@ -1,5 +1,5 @@
 # =================================================================================================
-#     Text Preprocessing
+#     Text Parsing and Tokenizing
 # =================================================================================================
 import re
 
@@ -33,42 +33,85 @@ while textPointer != NOT_FOUND:
     # Searches for the text
     textPointer = rawText.find("<text>", categoryEnd) + TEXT_LENGTH
     textEnd = rawText.find("</text>", textPointer)
-    # currentText = re.split("\W+", rawText[textPointer : textEnd])
-    currentText = rawText[textPointer : textEnd].split()
-    currentText = filter(lambda a: (a != '-') and (a != ';') and (a!= '.') and (a!='|'), currentText)
+    currentText = rawText[textPointer: textEnd].lower().decode("utf-8")
 
-    # Stores the results
+    ## Tokenizes
+    # Removes punctuation
+    currentText = re.sub('[\)\(@#$|,!.:;?]', ' ', currentText)
+
+    # Converts to list and filters some noise
+    currentText = currentText.split()
     if currentText != []:
+        currentText = filter(lambda a: (a != '-'), currentText) # Filters some noise
+
+        # Stores results
         categories.append(currentCategory)
-        texts.append((currentText))
+        texts.append(currentText)
 
     # Prepares for next cycle
     textPointer = rawText.find("category=", textPointer)
 
-# Debug
-# for element in texts[:83]:
-#     print element
+
 
 
 # =================================================================================================
-#     Applying Language Processors
+#     Stop Word Removal and Stemming
+# =================================================================================================
+import nltk
+
+# N_TOTAL = int(0.2 * len(texts))
+N_TOTAL = len(texts)
+
+# Stop Words
+for stopword in nltk.corpus.stopwords.words('portuguese'):
+    for i in xrange(N_TOTAL):
+        texts[i] = filter(lambda a: (a.lower() != stopword.lower()), texts[i])
+
+# Stemming
+PTsTemmer = nltk.stem.RSLPStemmer()
+for i in xrange(N_TOTAL):
+    for j in xrange(len(texts[i])):
+        texts[i][j] = PTsTemmer.stem(texts[i][j])
+
+
+# =================================================================================================
+#     Defining Features
 # =================================================================================================
 CATEGORY_COLUMN = 0
 TEXT_COLUMN = 1
 
-import nltk
 
-test = ["A", "B", "C", "D"]
+WORD_COLUMN = 0
+FREQUENCY_COLUMN = 1
+FEATURE_COUNT = 5
 
-# Not Found corpus.stopwords!!
-# ptWords = nltk.corpus.stopwords.words('portuguese')
-# print ptWords[:10]
+N_FIT = int(0.5 * N_TOTAL)
 
-# Removing stop words
-# for stopword in nltk.corpus.stopwords.words('portuguese'):
-#     for index in xrange(len(texts)):
-#         if texts[index].find(stopword) != NOT_FOUND:
-#             texts.remove(index)
-#
-# for element in texts[:20]:
-#     print element
+def getFeatures (text):
+    fd = nltk.FreqDist(word for word in text)
+
+    # Most frequent words
+    wordFreq = []
+    for word in list(fd.keys()[:20]):
+        wordFreq.append([word, fd[word]])
+
+    # Sorts by frequency (highest frequency first)
+    wordFreq = sorted(wordFreq, key=lambda tuple: -tuple[FREQUENCY_COLUMN])[:FEATURE_COUNT]
+
+    features = {}
+    for i in xrange(FEATURE_COUNT):
+        features['w%d' % i] = wordFreq[i][WORD_COLUMN]
+        features['f%d' % i] = wordFreq[i][FREQUENCY_COLUMN]
+
+    return features
+
+# Set Features
+featureSets= [(getFeatures(text), category) for (text, category) in zip(texts, categories)]
+
+trainSet, testSet = featureSets[:N_FIT], featureSets[N_FIT:]
+
+naiveBayes = nltk.NaiveBayesClassifier.train(trainSet)
+print nltk.classify.accuracy(naiveBayes, testSet)
+
+maxEntropy = nltk.MaxentClassifier.train(trainSet)
+print nltk.classify.accuracy(maxEntropy, testSet)
