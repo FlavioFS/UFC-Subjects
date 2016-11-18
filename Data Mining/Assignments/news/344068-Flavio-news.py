@@ -83,7 +83,7 @@ TEXT_COLUMN = 1
 
 WORD_COLUMN = 0
 FREQUENCY_COLUMN = 1
-FEATURE_COUNT = 5
+FEATURE_COUNT = 2
 
 N_FIT = int(0.5 * N_TOTAL)
 
@@ -99,7 +99,7 @@ def getFeatures (text):
     wordFreq = sorted(wordFreq, key=lambda tuple: -tuple[FREQUENCY_COLUMN])[:FEATURE_COUNT]
 
     features = {}
-    for i in xrange(FEATURE_COUNT):
+    for i in xrange(min(FEATURE_COUNT, len(wordFreq))):
         features['w%d' % i] = wordFreq[i][WORD_COLUMN]
         features['f%d' % i] = wordFreq[i][FREQUENCY_COLUMN]
 
