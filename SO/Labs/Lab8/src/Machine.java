@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public class Machine {
 	public static final int FREE_PAGE = -420;
@@ -27,8 +28,18 @@ public class Machine {
 	 * ===========================================================
 	 */
 	public void setFrame (final int i, final int pageId) {
-		if (i >= 0 && i < size())
-			_frames[i] = pageId;
+		
+		// Invalid index
+		if (i < 0 || i >= size())
+			return;
+		
+		// Repeated page
+		if (pageId != FREE_PAGE)
+			for (int j=0; j<size(); j++)
+				if (_frames[j] == pageId)
+					return;
+
+		_frames[i] = pageId;
 	}
 	
 	
@@ -73,5 +84,26 @@ public class Machine {
 		}
 		
 		return PAGE_FAULT;
+	}
+	
+	public int[] activePages () {
+		ArrayList<Integer> pageList = new ArrayList<Integer>();
+		
+		int newPage;
+		for (int i=0; i<size(); i++) {
+			newPage = getPage(i);
+			
+			// Discards free pages
+			if (newPage != FREE_PAGE)
+				pageList.add(new Integer (newPage));
+		}
+		
+		int [] iList = new int [pageList.size()];
+		
+		// Casting to Integer
+		for (int i=0; i<iList.length; i++)
+			iList[i] = pageList.get(i).intValue();
+		
+		return iList;
 	}
 }

@@ -1,6 +1,9 @@
 import java.util.Locale;
 
-
+/**
+ * First Come, Fist Served page swapping
+ *
+ */
 public class SwapperFIFO extends PageSwapper{
 
 	public SwapperFIFO(int[] pageList) {

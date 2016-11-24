@@ -1,7 +1,10 @@
 import java.util.ArrayList;
 import java.util.Locale;
 
-
+/**
+ * LEAST-RECENTLY-USED page swapping
+ *
+ */
 public class SwapperLRU extends PageSwapper{
 
 	public SwapperLRU(int[] pageList) {

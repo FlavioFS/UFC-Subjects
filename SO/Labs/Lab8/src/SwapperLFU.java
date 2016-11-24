@@ -1,13 +1,12 @@
-import java.util.ArrayList;
 import java.util.Locale;
 
 /**
- * LEAST-FREQUENT-LATER page swapping
+ * LEAST-FREQUENTLY-USED page swapping
  *
  */
-public class SwapperOptimal extends PageSwapper{
+public class SwapperLFU extends PageSwapper{
 
-	public SwapperOptimal(int[] pageList) {
+	public SwapperLFU(int[] pageList) {
 		super(pageList);
 	}
 
@@ -37,30 +36,31 @@ public class SwapperOptimal extends PageSwapper{
 				
 				// No free page => Get a victim
 				else {
-					// Creates a list of pages in use
-					ArrayList<Integer> lastUsed = new ArrayList<Integer>();
-					int pageId;
-					for (int j=0; j<mach.size(); j++) {
-						pageId = mach.getPage(j);
+					// Gets the list of active pages
+					int[] activePages = mach.activePages();
+					
+					// Creates a frequency list
+					int[] frequencyList = new int [activePages.length];
+					for (int j=0; j <frequencyList.length; j++)
+						frequencyList[j] = 0;
 						
-						// Do not copy free pages
-						if (pageId != Machine.FREE_PAGE)
-							lastUsed.add(pageId);
+					// Through all active pages...
+					for (int j=0; j<activePages.length; j++) {
+						
+						// ...counts its frequency
+						for (int k=0; k<=i; k++)
+							if (_pageList[k] == activePages[j])
+								frequencyList[j]++;
 					}
 					
-					// Removes elements from the list one by one 
-					// until there's only one or until the pageList finishes
-					for (int j=i+1; j<_pageList.length; j++) {
-						
-						// Removed everyone but one guy, it is the only choice 
-						if (lastUsed.size() == 1)
-							break;
-						
-						lastUsed.remove(new Integer(_pageList[j]));
-					}
 					
-					// Victim is one of the remaining "unused" pages
-					int victimPage = lastUsed.get(0);
+					// Victim is the least frequent one (before this moment)
+					int minimum = 0;
+					for (int j=1; j <frequencyList.length; j++)
+						if (frequencyList[j] < frequencyList[minimum])
+							minimum = j;
+						
+					int victimPage = activePages[minimum];
 					mach.setFrame(mach.getFrameIndex(victimPage), requestedPage);
 				}
 				
@@ -78,7 +78,7 @@ public class SwapperOptimal extends PageSwapper{
 		float faultTimeRatio = 100*swapTime/(swapTime+memTime);
 		System.out.println(
 			String.format(Locale.ENGLISH, "===========================\n") +
-			String.format(Locale.ENGLISH, "          OPTIMAL          \n") +
+			String.format(Locale.ENGLISH, "            LFU            \n") +
 			String.format(Locale.ENGLISH, "===========================\n") +
 			String.format(Locale.ENGLISH, "          Faults: %2d\n", faults) +
 			String.format(Locale.ENGLISH, "Fault Time Ratio: %4.2f%%\n",  faultTimeRatio)
