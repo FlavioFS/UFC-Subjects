@@ -16,10 +16,10 @@ public class PageSwapExample {
 		mach.reset();
 		SwapperFIFO fifo = new SwapperFIFO (pageList);
 		fifo.allocate(mach);
-//		
-//		mach.reset();
-//		SwapperLRU lru = new SwapperLRU (pageList);
-//		lru.allocate(mach);
+		
+		mach.reset();
+		SwapperLRU lru = new SwapperLRU (pageList);
+		lru.allocate(mach);
 //		
 //		mach.reset();
 //		SwapperLFU lfu = new SwapperLFU (pageList);
