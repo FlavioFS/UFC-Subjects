@@ -1,5 +1,12 @@
+/**
+ * Creator: Flavio Freitas de Sousa
+ * Contact: flaviofreitas.h@gmail.com
+ * Date: 2016/Nov/25
+ */
+
 import java.util.ArrayList;
 import java.util.Locale;
+
 
 /**
  * LEAST-FREQUENT-LATER page swapping

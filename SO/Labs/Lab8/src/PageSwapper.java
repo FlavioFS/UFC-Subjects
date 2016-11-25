@@ -1,3 +1,8 @@
+/**
+ * Creator: Flavio Freitas de Sousa
+ * Contact: flaviofreitas.h@gmail.com
+ * Date: 2016/Nov/25
+ */
 
 public abstract class PageSwapper {
 	protected final int MEMORY_ACCESS_TIME = 200;
