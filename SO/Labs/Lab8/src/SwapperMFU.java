@@ -6,12 +6,12 @@ import java.util.Locale;
  */
 public class SwapperMFU extends PageSwapper{
 
-	public SwapperMFU(int[] pageList) {
-		super(pageList);
+	public SwapperMFU(Machine mach) {
+		super(mach);
 	}
 
 	@Override
-	public void allocate(Machine mach) {
+	public void allocate(final int[] pageList) {
 		int faults = 0;
 		int swapTime = 0;
 		int memTime = 0;
@@ -19,25 +19,25 @@ public class SwapperMFU extends PageSwapper{
 		int requestedPage = Machine.FREE_PAGE;
 		int requestedFrame = Machine.PAGE_FAULT;
 		
-		for (int i=0; i<_pageList.length; i++) {
+		for (int i=0; i<pageList.length; i++) {
 			
-			requestedPage = _pageList[i];
-			requestedFrame = mach.getFrameIndex(requestedPage);
+			requestedPage = pageList[i];
+			requestedFrame = _mach.getFrameIndex(requestedPage);
 			
 			// Page Fault
 			if (pageFault(requestedFrame)) {
 				
 				// Searches for free page
-				requestedFrame = mach.getFreeFrame();
+				requestedFrame = _mach.getFreeFrame();
 				
 				// Got it
 				if (!pageFault(requestedFrame))
-					mach.setFrame(requestedFrame, requestedPage);
+					_mach.setFrame(requestedFrame, requestedPage);
 				
 				// No free page => Get a victim
 				else {
 					// Gets the list of active pages
-					int[] activePages = mach.activePages();
+					int[] activePages = _mach.activePages();
 					
 					// Creates a frequency list
 					int[] frequencyList = new int [activePages.length];
@@ -49,7 +49,7 @@ public class SwapperMFU extends PageSwapper{
 						
 						// ...counts its frequency
 						for (int k=0; k<=i; k++)
-							if (_pageList[k] == activePages[j])
+							if (pageList[k] == activePages[j])
 								frequencyList[j]++;
 					}
 					
@@ -61,7 +61,7 @@ public class SwapperMFU extends PageSwapper{
 							maximum = j;
 						
 					int victimPage = activePages[maximum];
-					mach.setFrame(mach.getFrameIndex(victimPage), requestedPage);
+					_mach.setFrame(_mach.getFrameIndex(victimPage), requestedPage);
 				}
 				
 				// Statistics
@@ -80,8 +80,8 @@ public class SwapperMFU extends PageSwapper{
 			String.format(Locale.ENGLISH, "===========================\n") +
 			String.format(Locale.ENGLISH, "            MFU            \n") +
 			String.format(Locale.ENGLISH, "===========================\n") +
-			String.format(Locale.ENGLISH, "          Faults: %2d\n", faults) +
-			String.format(Locale.ENGLISH, "Fault Time Ratio: %4.2f%%\n",  faultTimeRatio)
+			String.format(Locale.ENGLISH, "          Faults: %2d       \n", faults) +
+			String.format(Locale.ENGLISH, "Fault Time Ratio: %4.2f%%   \n",  faultTimeRatio)
 		);
 	}
 

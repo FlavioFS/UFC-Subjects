@@ -7,12 +7,12 @@ import java.util.Locale;
  */
 public class SwapperLRU extends PageSwapper{
 
-	public SwapperLRU(int[] pageList) {
-		super(pageList);
+	public SwapperLRU(Machine mach) {
+		super(mach);
 	}
 
 	@Override
-	public void allocate(Machine mach) {
+	public void allocate(final int[] pageList) {
 		int faults = 0;
 		int swapTime = 0;
 		int memTime = 0;
@@ -20,28 +20,28 @@ public class SwapperLRU extends PageSwapper{
 		int requestedPage = Machine.FREE_PAGE;
 		int requestedFrame = Machine.PAGE_FAULT;
 		
-		for (int i=0; i<_pageList.length; i++) {
+		for (int i=0; i<pageList.length; i++) {
 			
-			requestedPage = _pageList[i];
-			requestedFrame = mach.getFrameIndex(requestedPage);
+			requestedPage = pageList[i];
+			requestedFrame = _mach.getFrameIndex(requestedPage);
 			
 			// Page Fault
 			if (pageFault(requestedFrame)) {
 				
 				// Searches for free page
-				requestedFrame = mach.getFreeFrame();
+				requestedFrame = _mach.getFreeFrame();
 				
 				// Got it
 				if (!pageFault(requestedFrame))
-					mach.setFrame(requestedFrame, requestedPage);
+					_mach.setFrame(requestedFrame, requestedPage);
 				
 				// No free page => Get a victim
 				else {
 					// Creates a list of pages in use
 					ArrayList<Integer> lastUsed = new ArrayList<Integer>();
 					int pageId;
-					for (int j=0; j<mach.size(); j++) {
-						pageId = mach.getPage(j);
+					for (int j=0; j<_mach.size(); j++) {
+						pageId = _mach.getPage(j);
 						
 						// Do not copy free pages
 						if (pageId != Machine.FREE_PAGE)
@@ -56,12 +56,12 @@ public class SwapperLRU extends PageSwapper{
 						if (lastUsed.size() == 1)
 							break;
 						
-						lastUsed.remove(new Integer(_pageList[j]));
+						lastUsed.remove(new Integer(pageList[j]));
 					}
 					
 					// Victim is one of the remaining "unused" pages
 					int victimPage = lastUsed.get(0);
-					mach.setFrame(mach.getFrameIndex(victimPage), requestedPage);
+					_mach.setFrame(_mach.getFrameIndex(victimPage), requestedPage);
 				}
 				
 				// Statistics
@@ -80,8 +80,8 @@ public class SwapperLRU extends PageSwapper{
 			String.format(Locale.ENGLISH, "===========================\n") +
 			String.format(Locale.ENGLISH, "            LRU            \n") +
 			String.format(Locale.ENGLISH, "===========================\n") +
-			String.format(Locale.ENGLISH, "          Faults: %2d\n", faults) +
-			String.format(Locale.ENGLISH, "Fault Time Ratio: %4.2f%%\n",  faultTimeRatio)
+			String.format(Locale.ENGLISH, "          Faults: %2d       \n", faults) +
+			String.format(Locale.ENGLISH, "Fault Time Ratio: %4.2f%%   \n",  faultTimeRatio)
 		);
 	}
 

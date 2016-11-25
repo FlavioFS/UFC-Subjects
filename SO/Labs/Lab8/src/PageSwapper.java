@@ -3,24 +3,24 @@ public abstract class PageSwapper {
 	protected final int MEMORY_ACCESS_TIME = 200;
 	protected final int PAGE_SWAP_TIME = 2000;
 	
-	protected int[] _pageList;
+	protected Machine _mach;
 	
 	
 	/* ===========================================================
 	 *   Setters
 	 * ===========================================================
 	 */
-	public void setPageList (final int[] pageList) {
-		_pageList = pageList;
+	public void setMachine (Machine mach) {
+		_mach = mach;
 	}
 	
 	
 	/* ===========================================================
-	 *   Constructor
+	 *   Constructors
 	 * ===========================================================
 	 */
-	public PageSwapper (final int[] pageList) {
-		setPageList(pageList);
+	public PageSwapper (Machine mach) {
+		setMachine(mach);
 	}
 	
 	
@@ -28,7 +28,7 @@ public abstract class PageSwapper {
 	 *   Methods
 	 * ===========================================================
 	 */
-	public abstract void allocate (Machine mach);
+	public abstract void allocate (final int[] pageList);
 	
 	protected boolean pageFault (final int requestedFrame) {
 		return requestedFrame == Machine.PAGE_FAULT;
