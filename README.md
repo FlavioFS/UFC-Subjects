@@ -1,7 +1,7 @@
 #  :computer: UFC Subjects
 
 ## About
-Repo for **two** Subjects.  
+Repo for **three** Subjects.  
 
 # Subject 1 - Data Mining
 | Topic | Details |
@@ -68,3 +68,33 @@ Short game description:
 |-------|-----------|
 | Name | Tanx |
 | Language | Java |
+
+
+# Subject 3 - Operational Systems
+| Topic | Details |
+|-------|-----------|
+| Subject | Operational Systems |
+| Supervisor | Prof. José Antônio Fernandes de Macêdo |
+| Organization | Universidade Federal do Ceará (UFC) |
+
+## Class Schedule
+  - [x] History of OS's
+  - [x] Kernels, Microkernels
+  - [x] Clusters
+  - [x] Hardware Management
+  - [x] Security Levels
+  - [x] System Calls
+  - [x] Process Lifecycle
+  - [x] Memory Sharing
+  - [x] Message Passing
+  - [x] Networking
+  - [x] Sending Packets
+  - [x] RMI
+  - [x] Java Programming
+  - [x] Concurrent Programming
+  - [x] Shell Scripting
+  - [x] Virtualization
+  - [x] Hypervisors
+  - [x] Cloud Computing and OS's
+  - [x] Artificial Intelligence in OS's
+  - [x] Distributed OS's
