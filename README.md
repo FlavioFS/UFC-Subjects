@@ -1,4 +1,70 @@
-UFC-Subjects
-============
+#  :computer: UFC Subjects
 
-Repo for assigned taks from classes of my university
+## About
+Repo for **two** Subjects.  
+
+# Subject 1 - Data Mining
+| Topic | Details |
+|-------|-----------|
+| Subject | Data Mining |
+| Supervisor | Prof. José Antônio Fernandes de Macêdo |
+| Organization | Universidade Federal do Ceará (UFC) |
+
+## Class Schedule
+  - [x] Knn
+  - [x] Linear Regression
+  - [x] Big Data
+  - [x] Recommendation Systems
+  - [x] Language Processing
+  - [x] Spark and PySpark
+
+
+# Subject 2 - Distributed Games
+| Topic | Details |
+|-------|-----------|
+| Subject | Distributed Games |
+| Supervisor | Prof. José Gilvan Rodrigues Maia |
+| Organization | Universidade Federal do Ceará (UFC) |
+
+## Class Schedule
+  - [x] Networking Basics Review
+  - [x] C++ Programming
+  - [x] Java Programming
+  - [x] SQLite
+  - [x] JDBC
+  - [x] Memory Management
+  - [x] Matchmaking
+  - [x] Packet Loss
+  - [x] Packet Queue
+  - [x] Networking Protocols
+  - [x] Real-time x Turn-based
+  - [x] P2P x Client-Server
+  - [x] Input Lag
+  - [x] Syncing Players
+  - [x] Security and Cheating
+  - [x] Ping Management
+  - [x] Prediction and Correction
+  - [x] Smoothing Animations
+  
+## Projects  
+### Project 1 - Hangman  
+> Create a turn-based network hangman game in Java.
+
+Short game description:  
+ - Multiplayer CLI hangman game.
+
+| Topic | Details |
+|-------|-----------|
+| Name | Hangman |
+| Language | Java |
+
+### Project 2 - Tanx
+> Create a real-time network game in Java.
+
+Short game description:  
+ - 2D shooting tanks.
+
+| Topic | Details |
+|-------|-----------|
+| Name | Tanx |
+| Language | Java |
